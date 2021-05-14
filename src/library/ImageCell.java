@@ -5,12 +5,9 @@
  */
 package library;
 
-
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
-
-
 import javax.swing.ImageIcon;
 
 /**
@@ -18,9 +15,8 @@ import javax.swing.ImageIcon;
  * @author HP
  */
 public class ImageCell extends ImageIcon {
-
-    private final int WIDTH = 100;
-    private final int HEIGHT = 125;
+    public static final int WIDTH = 100;
+    public static final int HEIGHT = 125;
     private Image img = null;
     
     public ImageCell(ImageIcon imageIcon){
@@ -33,5 +29,14 @@ public class ImageCell extends ImageIcon {
             g.drawImage(img, x+1, y+1, img.getWidth(null)-2, img.getHeight(null)-2, null);
         }
     }
-
+    
+    @Override
+    public int getIconWidth(){
+        return this.WIDTH;
+    }
+    
+    @Override
+    public int getIconHeight(){
+        return this.HEIGHT;
+    }
 }
