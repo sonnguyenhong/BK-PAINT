@@ -104,6 +104,7 @@ public class ImagePane extends javax.swing.JPanel {
                 repaint();
             }
         });
+        
     }
     
     public void setProgressBar(JProgressBar progressBar){
@@ -113,10 +114,12 @@ public class ImagePane extends javax.swing.JPanel {
     //Phuong thuc load anh len panel
     public void refresh(){
         //Neu anh da duoc load
+        
         g2 = (Graphics2D) buff_img.getGraphics();
         g2.setColor(new Color(204, 204, 255));
         g2.fillRect(0, 0, getSize().width, getSize().height);
         g2.dispose();
+        
         
         if(isLoadeds[libIndex] == false){
             for(int i = 0 ; i < rows ; i++){
@@ -157,8 +160,10 @@ public class ImagePane extends javax.swing.JPanel {
                     imageCell = storedImage.get(k);
                     imageCell.paintIcon(null, g2d, j * ImageCell.WIDTH, i * ImageCell.HEIGHT);
                     
+                    /*
                     BufferedImage tempImg = (BufferedImage) imageCell.getImage();
                     images[i][j] = new ImageIcon(tempImg.getScaledInstance(ImageCell.WIDTH, ImageCell.HEIGHT, Image.SCALE_SMOOTH));
+                    */
                 }
             }
         }
