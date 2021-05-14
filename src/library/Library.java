@@ -20,7 +20,7 @@ public class Library extends javax.swing.JDialog {
      */
     private BufferedImage buff_img;
     
-    public Library(java.awt.Frame parent, boolean modal) {
+    public Library(javax.swing.JFrame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         buff_img = imagePane.getSelectedImage();
@@ -37,15 +37,15 @@ public class Library extends javax.swing.JDialog {
     private void initComponents() {
 
         imagePane = new library.ImagePane();
-        previewPanel = new javax.swing.JPanel();
-        previewImg = new javax.swing.JLabel();
         previewLabel = new javax.swing.JLabel();
         bOk = new javax.swing.JButton();
         bNext = new javax.swing.JButton();
         bPrev = new javax.swing.JButton();
         bCancel = new javax.swing.JButton();
+        previewImagePane = new library.PreviewImagePane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Library");
         setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -53,6 +53,7 @@ public class Library extends javax.swing.JDialog {
             }
         });
 
+        imagePane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         imagePane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 imagePaneMousePressed(evt);
@@ -68,21 +69,6 @@ public class Library extends javax.swing.JDialog {
         imagePaneLayout.setVerticalGroup(
             imagePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 375, Short.MAX_VALUE)
-        );
-
-        previewImg.setFont(new java.awt.Font("Adobe Fangsong Std R", 0, 11)); // NOI18N
-        previewImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        previewImg.setText("not selected yet");
-
-        javax.swing.GroupLayout previewPanelLayout = new javax.swing.GroupLayout(previewPanel);
-        previewPanel.setLayout(previewPanelLayout);
-        previewPanelLayout.setHorizontalGroup(
-            previewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(previewImg, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-        );
-        previewPanelLayout.setVerticalGroup(
-            previewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(previewImg, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
         previewLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -116,6 +102,19 @@ public class Library extends javax.swing.JDialog {
             }
         });
 
+        previewImagePane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout previewImagePaneLayout = new javax.swing.GroupLayout(previewImagePane);
+        previewImagePane.setLayout(previewImagePaneLayout);
+        previewImagePaneLayout.setHorizontalGroup(
+            previewImagePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        previewImagePaneLayout.setVerticalGroup(
+            previewImagePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,20 +124,20 @@ public class Library extends javax.swing.JDialog {
                 .addComponent(imagePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(previewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(71, 71, 71))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(previewLabel)
-                                .addGap(146, 146, 146))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(bOk, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 87, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(previewLabel)
+                                .addGap(146, 146, 146))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(previewImagePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(69, 69, 69))))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(188, 188, 188)
                 .addComponent(bPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,15 +152,15 @@ public class Library extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(previewLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(previewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(previewImagePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bOk)
                             .addComponent(bCancel))
                         .addGap(3, 3, 3))
                     .addComponent(imagePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bPrev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bNext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -189,7 +188,9 @@ public class Library extends javax.swing.JDialog {
     private void imagePaneMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePaneMousePressed
         // TODO add your handling code here:
         buff_img = imagePane.getSelectedImage();
-        previewImg.setIcon(new ImageIcon(buff_img.getScaledInstance(previewPanel.getWidth(), previewPanel.getHeight(), Image.SCALE_SMOOTH)));
+        previewImagePane.showPreviewImage(buff_img);
+        //previewImg.setIcon(new ImageIcon(buff_img.getScaledInstance(previewPanel.getWidth(), previewPanel.getHeight(), Image.SCALE_SMOOTH)));
+        
     }//GEN-LAST:event_imagePaneMousePressed
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
@@ -258,9 +259,8 @@ public class Library extends javax.swing.JDialog {
     private javax.swing.JButton bOk;
     private javax.swing.JButton bPrev;
     private library.ImagePane imagePane;
-    private javax.swing.JLabel previewImg;
+    private library.PreviewImagePane previewImagePane;
     private javax.swing.JLabel previewLabel;
-    private javax.swing.JPanel previewPanel;
     // End of variables declaration//GEN-END:variables
     public BufferedImage getBufferedImage(){
         return this.buff_img;
