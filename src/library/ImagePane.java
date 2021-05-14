@@ -227,7 +227,7 @@ public class ImagePane extends javax.swing.JPanel {
             BufferedImage tempImg = null;
             try{
                 //tempImg = ImageIO.read(Toolkit.getDefaultToolkit().getClass().getResource("library.png"));
-                tempImg = ImageIO.read(new File(org_path + "library.png"));
+                tempImg = ImageIO.read(new File(org_path + "library-01.png"));
             }catch(IOException e){
                 System.out.println("Khong lay duoc anh");
             }
