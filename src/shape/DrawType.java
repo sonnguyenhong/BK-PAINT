@@ -4,11 +4,15 @@
  * and open the template in the editor.
  */
 package shape;
+     
+import java.awt.Graphics2D;
 
 /**
  *
  * @author Admin
  */
-public class DrawType {
+public interface DrawType {
+
+    public void draw(Graphics2D g2d);
     
 }
