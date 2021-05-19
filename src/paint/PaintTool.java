@@ -51,6 +51,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
         jToggleButton4 = new javax.swing.JToggleButton();
         jToggleButton10 = new javax.swing.JToggleButton();
         bEllipse = new javax.swing.JToggleButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         bPencil = new javax.swing.JToggleButton();
         bBucket = new javax.swing.JToggleButton();
         bText = new javax.swing.JToggleButton();
@@ -62,6 +63,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
         bTriangle = new javax.swing.JToggleButton();
         bCurve = new javax.swing.JToggleButton();
         bOval = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jToggleButton4.setText("jToggleButton4");
 
@@ -74,6 +76,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bPencil);
         bPencil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/pencil.png"))); // NOI18N
         bPencil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,8 +84,10 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bBucket);
         bBucket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/bucket.png"))); // NOI18N
 
+        buttonGroup1.add(bText);
         bText.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/font.png"))); // NOI18N
         bText.setToolTipText("");
         bText.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +96,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bEraser);
         bEraser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/eraser.png"))); // NOI18N
         bEraser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +104,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bPicker);
         bPicker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/picker.png"))); // NOI18N
         bPicker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +112,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bRectangle);
         bRectangle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/rectangle.png"))); // NOI18N
         bRectangle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +120,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bSelect);
         bSelect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/select.png"))); // NOI18N
         bSelect.setToolTipText("");
         bSelect.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +129,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bLine);
         bLine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/line.png"))); // NOI18N
         bLine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +137,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bTriangle);
         bTriangle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/triangle.png"))); // NOI18N
         bTriangle.setToolTipText("");
         bTriangle.addActionListener(new java.awt.event.ActionListener() {
@@ -135,14 +146,15 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
             }
         });
 
+        buttonGroup1.add(bCurve);
         bCurve.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/curve.png"))); // NOI18N
-        bCurve.setSelected(true);
         bCurve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCurveActionPerformed(evt);
             }
         });
 
+        buttonGroup1.add(bOval);
         bOval.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/oval.png"))); // NOI18N
         bOval.setSelected(true);
         bOval.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +162,8 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
                 bOvalActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Select");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -177,7 +191,11 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
                     .addComponent(bCurve, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bTriangle, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -196,7 +214,11 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
                     .addComponent(bEraser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bRectangle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bPicker, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-            .addComponent(bSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(bSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -267,6 +289,8 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
     private javax.swing.JToggleButton bSelect;
     private javax.swing.JToggleButton bText;
     private javax.swing.JToggleButton bTriangle;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JToggleButton jToggleButton10;
     private javax.swing.JToggleButton jToggleButton4;
     // End of variables declaration//GEN-END:variables
