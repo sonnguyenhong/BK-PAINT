@@ -61,7 +61,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
     private Triangle triangle;
     private Bucket bucket;
     private Picker picker;
-    private SelectionShape select_;
+    private SelectionShape sel_rect;//select rectangle
     private Point locationEraser = new Point();
     private Text text;
     private TextPanel textPanel = new TextPanel();
@@ -173,11 +173,37 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         this.addMouseMotionListener(this);
     }
     
+    private boolean testHit(Point p) {//test bấm xem có bấm vào trong phần select k
+        if (sel_rect != null && sel_rect.getStartLocation() != null && sel_rect.getEndlocation() != null) {
+
+            if (p.x < Math.min(sel_rect.getStartLocation().x, sel_rect.getEndlocation().x)
+                    || p.x > Math.max(sel_rect.getStartLocation().x, sel_rect.getEndlocation().x)) {
+                return false;
+            } else if (p.y < Math.min(sel_rect.getStartLocation().y, sel_rect.getEndlocation().y)
+                    || p.y > Math.max(sel_rect.getStartLocation().y, sel_rect.getEndlocation().y)) {
+
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    private boolean testMousePressed(Point p, Point start, Point end) {
+        int a[] = {Math.min(start.x, end.x), Math.min(start.y, end.y), Math.max(start.x, end.x), Math.max(start.y, end.y)};
+        if (p.x > a[0] && p.x < a[2] && p.y > a[1] && p.y < a[3]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public void cut(){
-        if(select_ != null){
-            int[] data = select_.getData();// lấy data trong select ở đây là 1 mảng pixel
-            int w = select_.getWidth();
-            int h = select_.getHeight();
+        if(sel_rect != null){
+            int[] data = sel_rect.getData();// lấy data trong select ở đây là 1 mảng pixel
+            int w = sel_rect.getWidth();
+            int h = sel_rect.getHeight();
             if(w == 0 || h == 0){
                 return;
             }
@@ -185,18 +211,18 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
             cpy_img.getRaster().setPixels(0, 0, w, h, data);
             Graphics2D g = (Graphics2D) buff_img.getGraphics();//Gán đối tượng g cho buff_img
             g.setColor(Color.WHITE);
-            g.fillRect(select_.getStartOrigin().x, select_.getStartOrigin().y, w, h);//tô trằng cho phần select
+            g.fillRect(sel_rect.getStartOrigin().x, sel_rect.getStartOrigin().y, w, h);//tô trằng cho phần select
             repaint();//vẽ lại lên màn hình
-            select_ = null;//bỏ phần select đi
+            sel_rect = null;//bỏ phần select đi
             g.dispose();//xóa cái g
         }
     }
     
     public void copy(){
-        if(select_ != null){
-            int[] data = select_.getData();
-            int w = select_.getWidth();
-            int h = select_.getHeight();
+        if(sel_rect != null){
+            int[] data = sel_rect.getData();
+            int w = sel_rect.getWidth();
+            int h = sel_rect.getHeight();
             if(w == 0 || h == 0){
                 return;
             }
@@ -213,23 +239,58 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         }
         repaint();
         cpy_img = null;
-        select_ = null;    
+        sel_rect = null;    
     }
     
     public void detele(){
-        if(select_ != null){
-            int[] data = select_.getData();// lấy data trong select ở đây là 1 mảng pixel
-            int w = select_.getWidth();
-            int h = select_.getHeight();
+        if(sel_rect != null){
+            int[] data = sel_rect.getData();// lấy data trong select ở đây là 1 mảng pixel
+            int w = sel_rect.getWidth();
+            int h = sel_rect.getHeight();
             if(w == 0 || h == 0){
                 return;
             }
             Graphics2D g = (Graphics2D) buff_img.getGraphics();//Gán đối tượng g cho buff_img
             g.setColor(Color.WHITE);
-            g.fillRect(select_.getStartOrigin().x, select_.getStartOrigin().y, w, h);//tô trằng cho phần select
+            g.fillRect(sel_rect.getStartOrigin().x, sel_rect.getStartOrigin().y, w, h);//tô trằng cho phần select
             repaint();//vẽ lại lên màn hình
-            select_ = null;//bỏ phần select đi
+            sel_rect = null;//bỏ phần select đi
             g.dispose();//xóa cái g
+        }
+    }
+    
+    public void toolChange(){//Khi chuyen sang tool khac ma van con tool dang dung
+        if(startCurve == true){//Neu chon curve thi khong sang tool khac ma chi them vao mảng
+            if(paintTool.getDrawMode() == DrawMode.CURVE){
+                curve.draw(g2d);
+                paintState.addDrawState(curve);
+                paintState.addDrawStep(PaintState.PAINTTING);
+                curve = null;
+                startCurve = false;
+                start = null;
+                end = null;
+            }
+            else{
+                curve.draw(g2d);
+                repaint();
+                paintState.addDrawState(curve);
+                paintState.addDrawStep(PaintState.PAINTTING);
+                curve = null;
+                startCurve = false;
+                start = null;
+                end = null;
+            }
+        } else if(startSelRect == true){ // dang select
+            if(sel_rect.isCreating()){// neu ma dang dc chon thi luu anh
+                sel_rect.setSelected(true);
+                sel_rect.draw(g2d);
+                paintState.addDrawState(sel_rect);
+                paintState.addDrawStep(PaintState.PAINTTING);
+                sel_rect = null;
+                startSelRect = false;
+                start = null;
+                end = null;
+            }
         }
     }
     
@@ -274,7 +335,35 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         g2.drawImage(buff_img, null, 0, 0);
         if(start != null && end != null){
             switch(paintTool.getDrawMode()){
-                
+                case LINE:
+                    line.draw(g2);
+                    break;
+                case RECTANGLE:
+                    rect.draw(g2);
+                    break;
+                case TRIANGLE:
+                    triangle.draw(g2);
+                    break;
+                case OVAL:
+                    oval.draw(g2);
+                    break;
+                case PENCIL:
+                    pencil.draw(g2);
+                    break;
+                case CURVE:
+                    if(curve != null){
+                        curve.draw(g2);
+                    }
+                    break;
+                case SELECT:
+                    if(sel_rect != null){
+                        sel_rect.draw(g2);
+                    }
+                case TEXT:
+                    if(text != null){
+                        text.draw(g2, g2d);
+                    }
+                    break;
             }
         }
     }
@@ -344,17 +433,354 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
     @Override
     public void mousePressed(MouseEvent e){
         
+        // xoa redo stack
+        if(!redoState.isEmpty()){
+            redoState.removeAll();
+        }
+        start = e.getPoint();
+        temp = e.getPoint();
+        
+        switch(paintTool.getDrawMode()){//xet qua cac trang thai
+            case LINE:
+                line = new Line();
+                line.setStroke(strokeState.getStroke());
+                //set màu cho stroke
+                line.setStrokeColor(colorChooser.getStrokeColor());
+                //Thêm điểm đầu vào danh sách điểm di chuột
+                line.addDraggedPoint(getPoint(start));
+                //Thêm điểm vào để vẽ
+                line.setPoint(getPoint(start), getPoint(start));
+            case RECTANGLE:
+                rect = new Rectangle();
+                rect.setStroke(strokeState.getStroke());
+                rect.setStrokeColor(colorChooser.getStrokeColor());
+                rect.setFillColor(colorChooser.getFillColor());
+                rect.addDraggedPoint(getPoint(start));
+                rect.setPoint(getPoint(start), getPoint(start));
+                break;
+            case TRIANGLE:
+                triangle = new Triangle();
+                triangle.setStroke(strokeState.getStroke());
+                triangle.setStrokeColor(colorChooser.getStrokeColor());
+                triangle.setFillColor(colorChooser.getFillColor());
+                triangle.addDraggedPoint(getPoint(start));
+                triangle.setPoint(getPoint(start), getPoint(start));
+                break;
+            case OVAL:
+                oval = new Oval();
+                oval.setStroke(strokeState.getStroke());
+                oval.setStrokeColor(colorChooser.getStrokeColor());
+                oval.setFillColor(colorChooser.getFillColor());
+                oval.setPoint(getPoint(start), getPoint(start));
+                oval.addDraggedPoint(getPoint(start));
+                break;
+            case PENCIL:
+                pencil = new Pencil();
+                pencil.setStroke(strokeState.getStroke());
+                pencil.setStrokeColor(colorChooser.getStrokeColor());
+                pencil.setPoint(getPoint(start), getPoint(start));
+                pencil.addDraggedPoint(getPoint(start));
+                pencil.draw(g2d);
+                break;
+            case BUCKET:
+                bucket = new Bucket();
+                bucket.setStart(getPoint(start));
+                bucket.setArrPoint(getPoint(start));
+                bucket.setColor(colorChooser.getFillColor());
+                bucket.draw(buff_img);
+                paintState.addDrawState(bucket);
+                break;
+            case ERASER:
+                eraser = new Eraser();
+                eraser.setStroke(strokeState.getStroke());
+                eraser.setStrokeColor(colorChooser.getFillColor());
+                eraser.setPoint(getPoint(start), getPoint(start));
+                eraser.addDraggedPoint(getPoint(start));
+                eraser.draw(g2d);
+                locationEraser.move((int) (e.getPoint().x / zoom), (int) (e.getPoint().y / zoom));
+                break;
+            case CURVE:
+                if(curve == null){// neu curve chua tao thi tao cai moi
+                    curve = new Curve();
+                    startCurve = true;//danh dau dang curve
+                    curve.setStroke(strokeState.getStroke());
+                    // gan cac dac tinh hien tai cho curve la do to stroke mau stroke va diem bat dau
+                    curve.setStrokeColor(colorChooser.getStrokeColor());
+                    curve.setStartPoint(getPoint(start));
+                }
+                if (curve.getState() == 1) {
+                    //Neu cung chi vua moi duoc tao thi se set lai diem dau tien trong danh sach diem
+                    curve.getList().get(0).setLocation(getPoint(e.getPoint()));
+                    //Them diem vao danh sach
+                } else if (curve.getState() == 2) {
+                    curve.getList().get(1).setLocation(getPoint(e.getPoint()));
+
+                } else if (curve.getState() == 3) {
+                    curve.getList().get(2).setLocation(getPoint(e.getPoint()));
+                }
+                curve.addDraggedPoint(getPoint(start));
+                curve.addPointToState(getPoint(start));
+                break;
+            case SELECT:
+                if(sel_rect != null){
+                    if(sel_rect.isCreating()){// Nếu đã được tạo rồi
+                        if(!testHit(getPoint(getPoint(start)))){// Bấm ra ngoài thì xóa
+                            sel_rect.setSelected(true);
+                            end = null;
+                            start = null;
+                            sel_rect.draw(g2d);
+                            paintState.addDrawState(sel_rect);
+                            paintState.addDrawStep(PaintState.PAINTTING);
+                            repaint();
+                            sel_rect = null;
+                            startSelRect = false;
+                        }
+                        else{
+                            temp1 = sel_rect.getStartLocation().x - getPoint(start).x;
+                            temp2 = sel_rect.getStartLocation().y - getPoint(start).y;
+                            sel_rect.addDraggedPoint(getPoint(new Point(start.x - temp1, start.y - temp2)));
+                            return;
+                        }
+                    }
+                }
+                if(sel_rect == null){// neu chua tao thi them diem vao
+                    sel_rect = new SelectionShape();
+                    startSelRect = true;//danh dau la dang select
+                    //them vao toa do 
+                    start = e.getPoint();
+                    sel_rect.setStartOrigin(getPoint(start));
+                    sel_rect.setStart(getPoint(start));
+                }
+                break;
+            case TEXT:
+                if(text != null){
+                    text.setIsCreated(true);
+                    if(testMousePressed(text.getStart(), text.getEnd(), e.getPoint()) == false){
+                        if(text.checkOverlap() == false){
+                            text.setString();
+                            if (text.getString().equals("") == false) {// nếu có viết vào thì vẽ lại lên màn 
+                                repaint();
+                            }
+                        }
+                        text.removeArea(this);// xóa vùng 
+                    }
+                    return;
+                }
+                else{// chưa có thì tạo 
+                    text = new Text();
+                    text.setStart(e.getPoint());
+                    text.setIsCreated(false);
+                    return;
+                }
+        }
     }
     @Override
     public void mouseReleased(MouseEvent e) {
+        switch(paintTool.getDrawMode()){// đền khi thả tay ra thì lưu trạng thái
+            case LINE:
+                paintState.addDrawState(line);
+                line.draw((g2));
+                break;
+            case RECTANGLE:
+                paintState.addDrawState(rect);
+                rect.draw(g2d);
+                break;
+            case TRIANGLE:
+                paintState.addDrawState(triangle);
+                triangle.draw(g2d);
+                break;
+            case OVAL:
+                paintState.addDrawState(oval);
+                oval.draw(g2d);
+                break;
+            case ERASER:
+                paintState.addDrawState(eraser);
+                eraser.draw(g2d);
+                locationEraser.move((int) (e.getPoint().x / zoom), (int) (e.getPoint().y / zoom));
+                break;
+            case PENCIL:
+                pencil.setPoint(pencil.getDraggedPoint().get(0), pencil.getDraggedPoint().get(0));
+                paintState.addDrawState(pencil);
+                pencil.draw(g2d);
+                break;
+            case PICKER:
+                picker = new Picker();
+                picker.setColor(new Color(buff_img.getRGB(start.x, start.y)));
+                colorChooser.setColorPicker(picker.getColor());
+                break;
+            case CURVE:
+                if(curve!=null){// thả chuột ra thì lưu điểm 
+                    end = e.getPoint();
+                    if(curve.getState()== 1){// trạng thái cuối cùng
+                        curve.getList().get(3).setLocation(getPoint(e.getPoint()));// ghi trạng thái vào list 
+                        curve.incState();// tăng bước lên 1
+                        curve.addDraggedPoint(getPoint(end));//add vao keo chuot
+                        curve.addPointToState(getPoint(end));// them vao mang replay
+                        return;
+                    }
+                    else if(curve.getState() == 2){
+                        curve.getList().get(1).setLocation(getPoint(e.getPoint()));
+                        curve.getList().get(2).setLocation(getPoint(e.getPoint()));
+                        curve.incState();
+                        curve.addDraggedPoint(getPoint(end));
+                        curve.addPointToState(getPoint(end));
+                        return;
+                    }
+                    } else if (curve.getState() == 3) {
+                        paintState.addDrawState(curve);
+                        curve.getList().get(2).setLocation(getPoint(e.getPoint()));
+                        curve.draw(g2d);
+                        curve.addDraggedPoint(getPoint(end));
+                        curve.addPointToState(getPoint(end));   //Phan them buoc ve se cho xuong phia duoi
+                        curve = null;
+                        startCurve = false;
+                    }
+                break;
+            case SELECT:
+                if(sel_rect != null){
+                    //Neu anh dc chon thi ve len buffer
+                    if(!sel_rect.isCreating()){// kiểm tra xem có đang chọn không
+                        if(sel_rect.isDragging()){//Nếu đang kéo thì thả ra sẽ là điểm cuối
+                            sel_rect.setEndOrigin(getPoint(end));
+                            
+                            //set lai la da tao dc anh
+                            sel_rect.setIsCreating(true);
+                            //Tao anh moi dua theo diem dau va diem cuoi
+                            sel_rect.setImage(buff_img.getSubimage(Math.min(sel_rect.getStartOrigin().x, sel_rect.getEndOrigin().x),
+                                    Math.min(sel_rect.getStartOrigin().y, sel_rect.getEndOrigin().y),
+                                    Math.abs(sel_rect.getStartOrigin().x - sel_rect.getEndOrigin().x),
+                                    Math.abs(sel_rect.getStartOrigin().y - sel_rect.getEndOrigin().y)));
+
+                            sel_rect.setIsDragging(false);
+                        }
+                    }
+                }  
+                return;
+                
+            case TEXT:
+                if (text != null) {
+                    Font font = textPanel.getFont();
+                    text.setEnd(e.getPoint());
+                    text.setArea(this);
+                    text.getArea().setFont(font);
+                    text.getArea().setOpaque(textPanel.getIsOpaque());
+                    text.setIsOpaque(textPanel.getIsOpaque());
+                    text.getArea().setForeground(colorChooser.getStrokeColor());
+                    text.setTextColor(colorChooser.getStrokeColor());
+                    text.setFont(font);
+                    text.setFillColor(colorChooser.getFillColor());
+                    System.out.println("released: " + text.getEnd().x + ", " + text.getEnd().y);
+                    repaint();
+                    if (text.getIsCreated() == true) {
+                        text.removeArea(this);
+                        text = null;
+                    }
+                }
+                return;
+            }
+            paintState.addDrawStep(PaintState.PAINTTING);
+            start = null;
+            end = null;
+            repaint();
+            
         
     }
     @Override
     public void mouseDragged(MouseEvent e) {
-        
+       //chỉ khi dragged chuột thì mới cập nhật hình lên bufer==>Lúc này mới ccaafn phải lưu ảnh
+        isSaved = false;
+        lbLocation.setText(getPoint(e.getPoint()).x + ", " + getPoint(e.getPoint()).y + "px");
+        end = e.getPoint();
+        switch (paintTool.getDrawMode()) {
+            case LINE:
+                line.setPoint(getPoint(start), getPoint(end));
+                line.addDraggedPoint(getPoint(end));
+                break;
+            case RECTANGLE:
+                rect.setPoint(getPoint(start), getPoint(end));
+                rect.addDraggedPoint(getPoint(end));
+                break;
+            case TRIANGLE:
+                triangle.setPoint(getPoint(start), getPoint(end));
+                triangle.addDraggedPoint(getPoint(end));
+                break;
+            case OVAL:
+                oval.setPoint(getPoint(start), getPoint(end));
+                oval.addDraggedPoint(getPoint(end));
+                break;
+            case ERASER:
+                eraser.setPoint(getPoint(start), getPoint(end));
+                eraser.addDraggedPoint(getPoint(end));
+                start = end;
+                eraser.draw(g2d);
+                locationEraser.move((int) (e.getPoint().x / zoom), (int) (e.getPoint().y / zoom));
+                break;
+            case PENCIL:
+                pencil.setPoint(getPoint(start), getPoint(end));
+                pencil.addDraggedPoint(getPoint(end));
+                start = end;
+                pencil.draw(g2d);
+                break;
+            case CURVE:
+                if (curve != null) {
+                    if (curve.getState() == 1) {
+                        curve.getList().get(3).setLocation(getPoint(e.getPoint()));
+                    } else if (curve.getState() == 2) {
+                        curve.getList().get(2).setLocation(getPoint(e.getPoint()));
+                    } else if (curve.getState() == 3) {
+                        curve.getList().get(2).setLocation(getPoint(e.getPoint()));
+                    }
+                    curve.addDraggedPoint(getPoint(end));
+                    curve.addPointToState(getPoint(end));
+
+                }
+                break;
+            case SELECT:
+                if (sel_rect != null) {
+                    if (sel_rect.isCreating()) {
+                        sel_rect.setStart(getPoint(new Point(end.x + temp1, end.y + temp2)));
+                        sel_rect.addDraggedPoint(getPoint(new Point(end.x + temp1, end.y + temp2)));
+
+                    } else {
+                        sel_rect.setPoint(getPoint(new Point(Math.min(start.x,end.x),Math.min(start.y, end.y))),
+                                getPoint(new Point(Math.max(start.x,end.x),Math.max(start.y,end.y))));
+                        sel_rect.setIsDragging(true);
+                    }
+                }
+
+                break;
+
+            case TEXT:
+                if (text != null) {
+                    text.setEnd(getPoint(e.getPoint()));
+
+                }
+                repaint();
+                return;
+        }
+        repaint(); 
     }
     @Override
     public void mouseMoved(MouseEvent e) {
-        
+        lbLocation.setText(getPoint(e.getPoint()).x + ", " + getPoint(e.getPoint()).y + "px");
+
+        if (paintTool.getDrawMode() == DrawMode.PICKER) {
+            setCursor(cursorOfPicker);
+        } else if (paintTool.getDrawMode() == DrawMode.ERASER) {
+            isMouseExit = false;
+            locationEraser.move((int) (e.getPoint().x / zoom), (int) (e.getPoint().y / zoom));
+            repaint();
+            setCursor(cursorOfEraser);
+        } else if (paintTool.getDrawMode() == DrawMode.SELECT) {
+            if (testHit(getPoint(e.getPoint())) == true) {
+                setCursor(new Cursor(Cursor.MOVE_CURSOR));
+            } else {
+                setCursor(cursorOfPaint);
+            }
+        } else if (paintTool.getDrawMode() == DrawMode.BUCKET) {
+            setCursor(cursorOfBucket);
+        } else {
+            setCursor(cursorOfPaint);
+        }
     }
 }
