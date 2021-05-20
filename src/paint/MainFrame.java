@@ -29,12 +29,12 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    //public static boolean isSaved;
+    public static boolean isSaved;
     private BufferedImage buff_img = null;
     private String fileName = "";
-    //private File fileImage = null;
+    private File fileImage = null;
     private PadPaint padPaint = null;
-    //private final JFileChooser fc = new JFileChooser();
+    private final JFileChooser fc = new JFileChooser();
     private JPanel backgroundPanel = new JPanel();
     private int width = 900, height = 450;
     public MainFrame() {
@@ -43,13 +43,13 @@ public class MainFrame extends javax.swing.JFrame {
         height_tf.setText("450");
         padPaint = new PadPaint(width, height);
         backgroundPanel.setLayout(null);
-        backgroundPanel.setBackground(new Color(214,217,223));
+        backgroundPanel.setBackground(new Color(204,204,223));
         buff_img = padPaint.getBuffer();
         backgroundPanel.setPreferredSize(new Dimension(buff_img.getWidth() + 20, buff_img.getHeight() + 50));
         backgroundPanel.add(padPaint);
         scrollPane.setViewportView(backgroundPanel);
         padPaint.setColorChooser(colorDialog1);
-        //padPaint.setPaintTool(paintTool);
+        padPaint.setPaintTool(paintTool);
         padPaint.setStrokeState(strokeState);
         padPaint.setTextPanel(textPanel1);
 
@@ -61,8 +61,23 @@ public class MainFrame extends javax.swing.JFrame {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setTitle("BKPaint");
         this.setIconImage(getImageIcon("/paint/paint.png"));
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                
+                    System.exit(0);
 
+            }
+        });
+        paintTool.addPropertyChangeListener("tool change", new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                padPaint.toolChange();
+            }
+
+        });
     }
+    
      public Image getImageIcon(String path) {
         Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(path));
         return image;
@@ -258,7 +273,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 5, Short.MAX_VALUE))
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(colorDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -402,6 +417,11 @@ public class MainFrame extends javax.swing.JFrame {
         openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         openFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/open.png"))); // NOI18N
         openFile.setText("Open");
+        openFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openFileActionPerformed(evt);
+            }
+        });
         jMenu1.add(openFile);
 
         saveFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -476,7 +496,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+     
     private void openDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDialogActionPerformed
         // TODO add your handling code here:
         new Library(this, true);
@@ -488,15 +508,53 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formMousePressed
 
     private void newFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFileActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
     }//GEN-LAST:event_newFileActionPerformed
+    /*public boolean saveImageToFile() {
+        JFileChooser saveFile = new JFileChooser("Save File");
+        int result = 0;
+        FileFilter filler;
+        BufferedImage img = null;
 
+        FileNameExtensionFilter jpeg = new FileNameExtensionFilter("JPEG (*.jpg;*.jpeg;*.jpe;*jfif)", "jpg", "jpeg", "jpe", "jfif");
+        saveFile.setFileFilter(jpeg);
+        FileNameExtensionFilter gif = new FileNameExtensionFilter("GIF (*.gif)", "gif");
+        saveFile.setFileFilter(gif);
+
+        FileNameExtensionFilter png = new FileNameExtensionFilter("PNG (*.png)", "png");
+        saveFile.setFileFilter(png);
+
+        File demo = new File("Untitled.png");
+        saveFile.setSelectedFile(demo);
+        result = saveFile.showSaveDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {                              
+            filler = saveFile.getFileFilter();                                  
+            fileImage = saveFile.getCurrentDirectory();                         
+            fileName = fileImage.getPath() + "\\" + saveFile.getSelectedFile().getName();  
+            fileImage = new File(fileName);                                              
+
+            String extension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+            if (fileImage.exists() == true) {
+                int r = JOptionPane.showConfirmDialog(this, saveFile.getSelectedFile().getName() + " already exists." + "\nDo you want to replace it?", "hello", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (r == JOptionPane.YES_OPTION) {
+
+                    padPaint.g(fileImage, extension);
+                    return true;
+                }
+            } else {
+                padPaint.saveImage(fileImage, extension);
+                return true;
+            }
+        }
+        return false;
+    }*/
     private void saveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_saveFileActionPerformed
 
     private void saveAsFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsFileActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_saveAsFileActionPerformed
 
     private void exitFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitFileActionPerformed
@@ -531,6 +589,10 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println("tool change");
         // TODO add your handling code here:
     }//GEN-LAST:event_paintToolPropertyChange
+
+    private void openFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_openFileActionPerformed
 
     /**
      * @param args the command line arguments

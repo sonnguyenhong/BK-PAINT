@@ -97,6 +97,9 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
     public void setTextPanel(TextPanel textPanel){
         this.textPanel = textPanel;
     } 
+    public void setPaintTool(PaintTool paintTool) {
+        this.paintTool = paintTool;
+    }
     public void setStrokeState(StrokeState strokeState){
         this.strokeState = strokeState;
     } 
