@@ -35,11 +35,12 @@ public class Curve extends Shape implements DrawType {
         }
         state = 1;
     }
-   
+    //trả state về 1
      public void resetState(){
         this.state = 1;
     }
     
+     //tăng state lên 1
     public void incState(){
         this.state++;
     }
@@ -97,6 +98,7 @@ public class Curve extends Shape implements DrawType {
         g2d.draw(gP);
     }
     
+    //Lấy list ra
     public ArrayList<Point> getList(){
         return list;
     }

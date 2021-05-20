@@ -432,7 +432,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
 
     @Override
     public void mouseExited(MouseEvent e) {
-    
+        lbLocation.setText("");
     }
     @Override
     public void mousePressed(MouseEvent e){
@@ -583,7 +583,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         switch(paintTool.getDrawMode()){// đền khi thả tay ra thì lưu trạng thái
             case LINE:
                 paintState.addDrawState(line);
-                line.draw((g2));
+                line.draw((g2d));
                 break;
             case RECTANGLE:
                 paintState.addDrawState(rect);
@@ -630,7 +630,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
                         curve.addPointToState(getPoint(end));
                         return;
                     }
-                    } else if (curve.getState() == 3) {
+                    else if (curve.getState() == 3) {
                         paintState.addDrawState(curve);
                         curve.getList().get(2).setLocation(getPoint(e.getPoint()));
                         curve.draw(g2d);
@@ -639,6 +639,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
                         curve = null;
                         startCurve = false;
                     }
+                }
                 break;
             case SELECT:
                 if(sel_rect != null){
