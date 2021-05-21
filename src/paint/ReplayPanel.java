@@ -375,7 +375,12 @@ public class ReplayPanel extends javax.swing.JPanel implements Runnable{
                     }
                 }else if(drawType instanceof Pencil){
                     if(cStateElement < listPoint.size() - 1){
-                        pencil.setPoint(listPoint.get(0), listPoint.get(cStateElement));
+                        
+                        System.out.println("currentState: " + currentState);
+                        System.out.println("currentStep: " + currentStep);
+                        System.out.println("currentStateElement: " + cStateElement);
+                        System.out.println("\n\n\n");
+                        pencil.setPoint(listPoint.get(cStateElement), listPoint.get(cStateElement + 1));
                         pencil.draw(g2dBuffer);
                     }
                 }else if(drawType instanceof Eraser){
