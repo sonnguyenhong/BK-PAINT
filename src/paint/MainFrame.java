@@ -195,8 +195,18 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/undo.png"))); // NOI18N
+        bUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUndoActionPerformed(evt);
+            }
+        });
 
         bRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/redo.png"))); // NOI18N
+        bRedo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRedoActionPerformed(evt);
+            }
+        });
 
         paintTool.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -805,6 +815,16 @@ public class MainFrame extends javax.swing.JFrame {
     private void bZoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bZoomOutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bZoomOutActionPerformed
+
+    private void bUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUndoActionPerformed
+                padPaint.undo();
+// TODO add your handling code here:
+    }//GEN-LAST:event_bUndoActionPerformed
+
+    private void bRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRedoActionPerformed
+                padPaint.redo();
+// TODO add your handling code here:
+    }//GEN-LAST:event_bRedoActionPerformed
 
 
     /**

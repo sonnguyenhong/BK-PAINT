@@ -391,6 +391,9 @@
                   <Image iconType="3" name="/paint/undo.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bUndoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bRedo">
               <Properties>
@@ -398,6 +401,9 @@
                   <Image iconType="3" name="/paint/redo.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRedoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="paint.PaintTool" name="paintTool">
               <Events>
