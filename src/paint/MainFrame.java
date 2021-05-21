@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -385,8 +387,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addGap(13, 13, 13)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(bZoomMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(bZoomMinus, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel1)
@@ -395,8 +397,8 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel2)
                                         .addComponent(height_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(bZoomorg, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bZoomadd))))
+                                .addComponent(bZoomorg, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                .addComponent(bZoomadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -598,14 +600,18 @@ public class MainFrame extends javax.swing.JFrame {
         return false;
     }
     private void saveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileActionPerformed
-        if (padPaint.isSaving() == false) {
+
+        // TODO add your handling code here:
+        if(padPaint.isSaving() == false){
             saveImageToFile();
-        }// TODO add your handling code here:
+        }
+
     }//GEN-LAST:event_saveFileActionPerformed
 
     private void saveAsFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsFileActionPerformed
             saveImageToFile();
         // TODO add your handling code here:
+        saveImageToFile();
     }//GEN-LAST:event_saveAsFileActionPerformed
 
     private void exitFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitFileActionPerformed
@@ -661,6 +667,59 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void openFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileActionPerformed
         // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser("Open a file");
+        int result = 0;
+        
+        FileNameExtensionFilter bitmap = new FileNameExtensionFilter("Bitmap Files (*.bmp; *.dib)", "bmp", "dib");
+        fileChooser.setFileFilter(bitmap);
+        
+        FileNameExtensionFilter jpeg = new FileNameExtensionFilter("JPEG (*.jpg;*.jpeg;*.jpe;*jfif)", "jpg", "jpeg", "jpe", "jfif");
+        fileChooser.setFileFilter(jpeg);
+        
+        FileNameExtensionFilter gif = new FileNameExtensionFilter("GIF (*.gif)", "gif");
+        fileChooser.setFileFilter(gif);
+        
+        FileNameExtensionFilter tiff = new FileNameExtensionFilter("TIFF (*.tif; *.tiff)", "tif", "tiff");
+        fileChooser.setFileFilter(tiff);
+        
+        FileNameExtensionFilter png = new FileNameExtensionFilter("PNG (*.png)", "png");
+        fileChooser.setFileFilter(png);
+        
+        FileNameExtensionFilter ico = new FileNameExtensionFilter("ICO (*.ico)", "ico");
+        fileChooser.setFileFilter(ico);
+        
+        FileNameExtensionFilter allFile = new FileNameExtensionFilter("All Picture Files", "bmp", "dib", "jpg", "jpeg", "jpe",
+                                                                "jfif", "gif", "tif", "tiff", "png", "ico");
+        fileChooser.setFileFilter(allFile);
+        
+        result = fileChooser.showOpenDialog(null);
+        
+        if(result == JFileChooser.APPROVE_OPTION){
+            File file = fileChooser.getSelectedFile();
+            BufferedImage img = null;
+            try{
+                img = ImageIO.read(new File(file.getPath()));
+            }catch(IOException e){
+                System.out.println("error in openFile action perform in MainFrame");
+            }
+            if(img != null){
+                if(padPaint.isSaving() == false){
+                    Object[] option = {"Save", "Don't save", "Cancel"};
+                    int specify = JOptionPane.showOptionDialog(this, "Do you want to save file?", "BKPaint", 
+                            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
+                    if(specify != JOptionPane.CANCEL_OPTION && specify != JOptionPane.CLOSED_OPTION){
+                        if(specify == JOptionPane.YES_OPTION){
+                            saveImageToFile();
+                        }else{
+                            return;
+                        }
+                    }
+                }
+                
+                padPaint.loadImage(img);
+                backgroundPanel.setPreferredSize(new Dimension(img.getWidth() + 20, img.getHeight() + 20));
+            }
+        }
     }//GEN-LAST:event_openFileActionPerformed
 
 
