@@ -359,6 +359,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        bReplay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/replay.png"))); // NOI18N
         bReplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bReplayActionPerformed(evt);
