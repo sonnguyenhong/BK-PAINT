@@ -24,7 +24,7 @@ public class ColorPanel extends javax.swing.JPanel {
     private Color[][] colors = new Color[soDong][soCot];
 //    private Color color = Color.WHITE;
 //    private ColorCell colorCell;
-    private Color image;
+    private ColorCell image;
     private Graphics2D g2d, g2;
     private Point location;
 
@@ -33,7 +33,7 @@ public class ColorPanel extends javax.swing.JPanel {
      */
     public ColorPanel() {
         initComponents();
-        image = Color.WHITE;
+        image = new ColorCell(Color.WHITE);
         
         colors[0][0] = new Color(0, 0, 0);
         colors[0][1] = new Color(255, 0, 204);
@@ -92,9 +92,11 @@ public class ColorPanel extends javax.swing.JPanel {
         
     }
     
-    
-    public Color getColor(){
+    public ImageIcon getImage() {
         return image;
+    }
+    public Color getColor(){
+        return image.getColor();
     }
     
     public void setImage(int mouseX, int mouseY) {
@@ -108,11 +110,11 @@ public class ColorPanel extends javax.swing.JPanel {
         if (cot < 0 || cot > soCot - 1 || dong < 0 || dong > soDong - 1) {
             return;
         }
-        image = cells[dong][cot].getColor();
+        image = cells[dong][cot];
     }
     
     public void setImage(Color color) {
-        image = color;
+        image = new ColorCell(color);
     }
     
     public void drawCell(int mouseX, int mouseY) {

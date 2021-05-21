@@ -25,15 +25,15 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="bStroke" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="bStrokeColor" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bFill" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="bFillColor" min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="colorPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="colorChoose" min="-2" pref="56" max="-2" attributes="0"/>
+              <Component id="colorChooser" min="-2" pref="56" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,8 +42,8 @@
           <Component id="colorPanel" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="bStroke" alignment="0" pref="51" max="32767" attributes="0"/>
-                  <Component id="bFill" alignment="0" max="32767" attributes="0"/>
+                  <Component id="bStrokeColor" alignment="0" pref="51" max="32767" attributes="0"/>
+                  <Component id="bFillColor" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -51,7 +51,7 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
-          <Component id="colorChoose" alignment="0" pref="0" max="32767" attributes="0"/>
+          <Component id="colorChooser" alignment="0" pref="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -65,9 +65,9 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Component class="javax.swing.JToggleButton" name="bStroke">
+    <Component class="javax.swing.JToggleButton" name="bStrokeColor">
     </Component>
-    <Component class="javax.swing.JToggleButton" name="bFill">
+    <Component class="javax.swing.JToggleButton" name="bFillColor">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -87,14 +87,14 @@
         <Property name="text" type="java.lang.String" value="Fill"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="colorChoose">
+    <Component class="javax.swing.JButton" name="colorChooser">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/property/colorchooser.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorChooseActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorChooserActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
