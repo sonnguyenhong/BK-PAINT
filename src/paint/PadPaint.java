@@ -311,6 +311,135 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         }
     }
     
+    public void undo() {
+        toolChange();
+        if (paintState.isEmpty()) {
+            return;
+        }
+        //Lay ra trang thai cuoi de tro lai trang thai truoc do
+        int stepState = paintState.removeEndStep();
+        redoState.addDrawStep(stepState);
+        //lay ra trang thai cua buoc ve cuoi cung
+        switch (stepState) {
+            case PaintState.PAINTTING:
+                //Neu la painting thi ve lai tu dau den trang thai truoc do
+                //Ve lai anh goc
+                //khoi tao mot buffer moi de ve len panel
+                buff_img = new BufferedImage(org_img.getWidth(), org_img.getHeight(), BufferedImage.TYPE_INT_RGB);
+                g2d = (Graphics2D) buff_img.getGraphics();
+                refresh();
+                //Xoa trang thai cuoi
+                DrawType drawType = paintState.removeEndShape();
+                redoState.addDrawState(drawType);
+                //Ve lai toan bo trang thai cua anh tu luc dau den luc 
+                int shapeIndex = 0;
+                for (int i = 0; i < paintState.getDrawStepList().size(); i++) {
+                    int inStepState = paintState.getDrawStepList().get(i);
+                    //Lay tung trang thia cua buoc ve
+                    switch (inStepState) {
+                        case PaintState.PAINTTING:
+                            //Neu la painting thi se ve lai toan bo anh tu dau
+                            DrawType inDrawType = paintState.getListState().get(shapeIndex);
+                            if (inDrawType instanceof Line) {
+                                Line inLine = (Line) inDrawType;
+                                inLine.draw(g2d);
+                            } else if (inDrawType instanceof Triangle) {
+                                Triangle inTriangle = (Triangle) inDrawType;
+                                inTriangle.draw(g2d);
+                            } else if (inDrawType instanceof Rectangle) {
+                                Rectangle inRect = (Rectangle) inDrawType;
+                                inRect.draw(g2d);
+                            
+                            } else if (inDrawType instanceof Oval) {
+                                Oval inOval = (Oval) inDrawType;
+                                inOval.draw(g2d);
+                            } else if (inDrawType instanceof Curve) {
+                                Curve inCurve = (Curve) inDrawType;
+                                inCurve.draw(g2d);
+
+                            } else if (inDrawType instanceof SelectionShape) {
+                                SelectionShape inselrect = (SelectionShape) inDrawType;
+                                inselrect.draw(g2d);
+                            } else if (inDrawType instanceof Pencil) {
+                                Pencil inPencil = (Pencil) inDrawType;
+                                for (int j = 1; j < inPencil.getDraggedPoint().size(); j++) {
+                                    inPencil.setPoint(inPencil.getDraggedPoint().get(j - 1), inPencil.getDraggedPoint().get(j));
+                                    inPencil.draw(g2d);
+                                }
+
+                            } //update by Khanh
+                            else if (inDrawType instanceof Bucket) {
+                                Bucket inBucket = (Bucket) inDrawType;
+                                inBucket.draw(buff_img);
+                            }
+                            shapeIndex++;
+                            break;
+                    }
+                }
+
+                break;
+        }
+
+        repaint();
+    }
+    
+    public void redo() {
+        if (!redoState.isEmpty()) {
+            int stepState = redoState.removeEndStep();
+            paintState.addDrawStep(stepState);
+            DrawType drawType0 = redoState.removeEndShape();
+            paintState.addDrawState(drawType0);
+            buff_img = new BufferedImage(org_img.getWidth(), org_img.getHeight(), BufferedImage.TYPE_INT_RGB);
+            g2d = (Graphics2D) buff_img.getGraphics();
+            refresh();
+            //Ve lai trang thai truoc do
+            int shapeIndex = 0;
+            for (int i = 0; i < paintState.getDrawStepList().size(); i++) {
+                int inStepState = paintState.getDrawStepList().get(i);
+                //Lay tung trang thia cua buoc ve
+                switch (inStepState) {
+                    
+                    case PaintState.PAINTTING:
+                        DrawType inDrawType = paintState.getListState().get(shapeIndex);
+                        if (inDrawType instanceof Line) {
+                            Line inLine = (Line) inDrawType;
+                            inLine.draw(g2d);
+                        } else if (inDrawType instanceof Triangle) {
+                            Triangle inTriangle = (Triangle) inDrawType;
+                            inTriangle.draw(g2d);
+                        } else if (inDrawType instanceof Rectangle) {
+                            Rectangle inRect = (Rectangle) inDrawType;
+                            inRect.draw(g2d);
+                        } else if (inDrawType instanceof Oval) {
+                            Oval inOval = (Oval) inDrawType;
+                            inOval.draw(g2d);
+
+                        } else if (inDrawType instanceof SelectionShape) {
+                            SelectionShape inselrect = (SelectionShape) inDrawType;
+                            inselrect.draw(g2d);
+                        } else if (inDrawType instanceof Curve) {
+                            Curve inCurve = (Curve) inDrawType;
+                            inCurve.draw(g2d);
+                        } else if (inDrawType instanceof Pencil) {
+                            Pencil inPencil = (Pencil) inDrawType;
+                            for (int j = 1; j < inPencil.getDraggedPoint().size(); j++) {
+                                inPencil.setPoint(inPencil.getDraggedPoint().get(j - 1), inPencil.getDraggedPoint().get(j));
+                                inPencil.draw(g2d);
+                            }
+
+                        } //update by Khanh
+                        else if (inDrawType instanceof Bucket) {
+                            Bucket inBucket = (Bucket) inDrawType;
+                            inBucket.draw(buff_img);
+                        }
+                        shapeIndex++;
+                }
+
+                repaint();
+            }
+        }
+    }
+    
     public void toolChange(){//Khi chuyen sang tool khac ma van con tool dang dung
         if(startCurve == true){//Neu chon curve thi khong sang tool khac ma chi them vao mảng
             if(paintTool.getDrawMode() == DrawMode.CURVE){
