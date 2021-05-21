@@ -159,7 +159,7 @@ public class StrokeState extends javax.swing.JPanel {
     
     class StrokeComboboxRenderer extends JLabel implements ListCellRenderer {
 
-        private String fileStrokeIcon[] = new String[]{"Stroke 1", "Stroke 2", "Stroke 3", "Stroke 4", "Stroke 5"};
+        private String fileStrokeIcon[] = new String[]{"stroke1", "stroke2", "stroke3", "stroke4", "stroke5"};
         private ImageIcon strokeIcon[] = new ImageIcon[fileStrokeIcon.length];
 
         public StrokeComboboxRenderer() {
@@ -167,7 +167,7 @@ public class StrokeState extends javax.swing.JPanel {
             setHorizontalAlignment(CENTER);
             setVerticalAlignment(CENTER);
             for (int i = 0; i < fileStrokeIcon.length; i++) {
-//                strokeIcon[i] = new ImageIcon(getImageIcon("/icon/stroke/" + fileStrokeIcon[i] + ".png"));
+                strokeIcon[i] = new ImageIcon(getImageIcon("/property/" + fileStrokeIcon[i] + ".png"));
             }
         }
 

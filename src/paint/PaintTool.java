@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -281,8 +282,10 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
     }//GEN-LAST:event_bSelectActionPerformed
 
     private void bBucketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBucketActionPerformed
+
         setDrawMode(DrawMode.BUCKET);
         // TODO add your handling code here:
+
     }//GEN-LAST:event_bBucketActionPerformed
 
 

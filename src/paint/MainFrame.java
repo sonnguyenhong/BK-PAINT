@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,6 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setTitle("BKPaint");
         this.setIconImage(getImageIcon("/paint/paint.png"));
+        this.pack();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -101,9 +104,7 @@ public class MainFrame extends javax.swing.JFrame {
         bDelete = new javax.swing.JButton();
         bUndo = new javax.swing.JButton();
         bRedo = new javax.swing.JButton();
-        cbTransform = new javax.swing.JComboBox<>();
         paintTool = new paint.PaintTool();
-        strokeState = new property.StrokeState();
         colorDialog1 = new property.ColorDialog();
         jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -111,21 +112,27 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        strokeState = new property.StrokeState();
         jPanel2 = new javax.swing.JPanel();
         bZoomadd = new javax.swing.JButton();
         bZoomMinus = new javax.swing.JButton();
         bZoomorg = new javax.swing.JButton();
         textPanel1 = new property.TextPanel();
-        openDialog = new javax.swing.JButton();
+        bLibrary = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         width_tf = new javax.swing.JTextField();
         height_tf = new javax.swing.JTextField();
         jButton10 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        bReplay = new javax.swing.JButton();
         scrollPane = new javax.swing.JScrollPane();
         lbLocation = new javax.swing.JLabel();
         lbSize = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        bZoomOut = new javax.swing.JButton();
+        sZoom = new javax.swing.JSlider();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         newFile = new javax.swing.JMenuItem();
@@ -154,11 +161,24 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         jPanel1.setBackground(new java.awt.Color(216, 238, 238));
+        jPanel1.setMinimumSize(new java.awt.Dimension(20, 0));
 
         bCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/copy.png"))); // NOI18N
+        bCopy.setMnemonic('C');
         bCopy.setMaximumSize(new java.awt.Dimension(36, 36));
+        bCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCopyActionPerformed(evt);
+            }
+        });
 
         bPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/paste.png"))); // NOI18N
+        bPaste.setMnemonic('V');
+        bPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPasteActionPerformed(evt);
+            }
+        });
 
         bCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/cut.png"))); // NOI18N
         bCut.addActionListener(new java.awt.event.ActionListener() {
@@ -168,12 +188,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/delete.png"))); // NOI18N
+        bDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDeleteActionPerformed(evt);
+            }
+        });
 
         bUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/undo.png"))); // NOI18N
 
         bRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/redo.png"))); // NOI18N
-
-        cbTransform.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rotate", "Rotate right 90", "Rotate left 90", "Rotate 180", "Flip vertical", "Flip horizontal" }));
 
         paintTool.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -214,37 +237,34 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(bDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
                             .addComponent(bCut, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(164, 164, 164)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(bUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bRedo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cbTransform, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addComponent(paintTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(strokeState, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(colorDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(177, 177, 177)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(132, 132, 132))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addComponent(bUndo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bRedo)
+                        .addGap(33, 33, 33)
+                        .addComponent(paintTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(168, 168, 168)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(189, 189, 189)
-                        .addComponent(jLabel8)))
-                .addGap(202, 202, 202))
+                        .addGap(200, 200, 200)
+                        .addComponent(jLabel8)
+                        .addGap(8, 8, 8))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(strokeState, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(colorDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(594, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,44 +273,44 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(paintTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbTransform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(bUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(bRedo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(strokeState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(paintTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(colorDialog1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(bRedo, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                                    .addComponent(bUndo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(6, 6, 6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(strokeState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel3))
-                            .addComponent(jLabel7)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
                                 .addComponent(jLabel5)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 14, Short.MAX_VALUE))
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel4)))
+                        .addGap(0, 5, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(colorDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(bCut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bCopy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(bDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bPaste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bCut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bCopy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bPaste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("Home", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(221, 227, 241));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         bZoomadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/zoomplus.png"))); // NOI18N
 
@@ -303,10 +323,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         bZoomorg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/zoomorg.png"))); // NOI18N
 
-        openDialog.setText("Library");
-        openDialog.addActionListener(new java.awt.event.ActionListener() {
+        bLibrary.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/library.png"))); // NOI18N
+        bLibrary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDialogActionPerformed(evt);
+                bLibraryActionPerformed(evt);
             }
         });
 
@@ -329,7 +349,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Replay");
+        bReplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bReplayActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -359,10 +383,10 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(textPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bReplay, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(openDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addComponent(bLibrary, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(626, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,8 +398,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addGap(13, 13, 13)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(bZoomMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(bZoomMinus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel1)
@@ -384,14 +408,14 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel2)
                                         .addComponent(height_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(bZoomorg, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(bZoomadd))))
+                                .addComponent(bZoomorg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bZoomadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(openDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(bReplay, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bLibrary, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(textPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -401,6 +425,26 @@ public class MainFrame extends javax.swing.JFrame {
         lbLocation.setText("jLabel9");
 
         lbSize.setText("jLabel10");
+
+        jButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        jButton1.setText("+");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        bZoomOut.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        bZoomOut.setText("-");
+        bZoomOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bZoomOutActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/location.png"))); // NOI18N
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/size.png"))); // NOI18N
 
         jMenu1.setText("File");
 
@@ -466,16 +510,30 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrollPane)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
+                .addGap(43, 43, 43)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbSize, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sZoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(232, 232, 232))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -485,22 +543,52 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(140, 140, 140))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbLocation)
-                    .addComponent(lbSize))
+                .addGap(7, 7, 7)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addComponent(bZoomOut)
+                            .addComponent(sZoom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbSize)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbLocation)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel10)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
      
-    private void openDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDialogActionPerformed
+    private void bLibraryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLibraryActionPerformed
         // TODO add your handling code here:
-        new Library(this, true);
-    }//GEN-LAST:event_openDialogActionPerformed
+        Library library = new Library(this, true);
+        buff_img = library.getBufferedImage();
+        if(buff_img != null){
+            //anh chua duoc luu
+            if(padPaint.isSaving() == false){
+                Object[] option = {"Save", "Don't save", "Cancel"};
+                int specify = JOptionPane.showOptionDialog(this, "Do you want to save file?", "BKPaint", 
+                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
+                if(specify != JOptionPane.CANCEL_OPTION && specify != JOptionPane.CLOSED_OPTION){
+                    if(specify == JOptionPane.YES_OPTION){
+                        saveImageToFile();
+                    }
+                    padPaint.loadImage(library.getBufferedImage());
+                    backgroundPanel.setPreferredSize(new Dimension(buff_img.getWidth() + 120, buff_img.getHeight() + 50));
+                }
+            }else{
+                padPaint.loadImage(library.getBufferedImage());
+                backgroundPanel.setPreferredSize(new Dimension(buff_img.getWidth() + 120, buff_img.getHeight() + 50));
+            }
+        }
+    }//GEN-LAST:event_bLibraryActionPerformed
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         // TODO add your handling code here:
@@ -508,9 +596,27 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formMousePressed
 
     private void newFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newFileActionPerformed
-       // TODO add your handling code here:
+       if (padPaint.isSaving() == false) {
+            Object[] option = {"Save", "Don't Save", "Cancel"};
+            int specify = JOptionPane.showOptionDialog(this, "Do you want to save file ?", "BKPaint", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
+            if (specify != JOptionPane.CANCEL_OPTION && specify != JOptionPane.CLOSED_OPTION) {
+                if (specify == JOptionPane.YES_OPTION) {
+                    if (saveImageToFile()) {
+                        padPaint.flush();
+                    } else {
+                        return;
+                    }
+                }
+
+                padPaint.flush();
+            } else {
+                return;
+            }
+        } else if (padPaint.isSaving() == true) {
+            padPaint.flush();
+        }// TODO add your handling code here:
     }//GEN-LAST:event_newFileActionPerformed
-    /*public boolean saveImageToFile() {
+    public boolean saveImageToFile() {
         JFileChooser saveFile = new JFileChooser("Save File");
         int result = 0;
         FileFilter filler;
@@ -539,7 +645,7 @@ public class MainFrame extends javax.swing.JFrame {
                 int r = JOptionPane.showConfirmDialog(this, saveFile.getSelectedFile().getName() + " already exists." + "\nDo you want to replace it?", "hello", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (r == JOptionPane.YES_OPTION) {
 
-                    padPaint.g(fileImage, extension);
+                    padPaint.saveImage(fileImage, extension);
                     return true;
                 }
             } else {
@@ -548,18 +654,43 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         return false;
-    }*/
+    }
     private void saveFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveFileActionPerformed
+
         // TODO add your handling code here:
+        if(padPaint.isSaving() == false){
+            saveImageToFile();
+        }
+
     }//GEN-LAST:event_saveFileActionPerformed
 
     private void saveAsFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsFileActionPerformed
+            saveImageToFile();
         // TODO add your handling code here:
+        saveImageToFile();
     }//GEN-LAST:event_saveAsFileActionPerformed
 
     private void exitFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitFileActionPerformed
+            if (padPaint.isSaving() == false) {
+            Object[] option = {"Save", "Don't Save", "Cancel"};
+            int specify = JOptionPane.showOptionDialog(null, "Do you want to save file ?", "BKPaint", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
+            if (specify != JOptionPane.CANCEL_OPTION && specify != JOptionPane.CLOSED_OPTION) {
+                if (specify == JOptionPane.YES_OPTION) {
+                    saveImageToFile();
+                    //phai luu duoc thi moi thoat
+                    if (padPaint.isSaving()) {
+                        System.exit(0);
+                    }
+                } else {
+                    System.exit(0);
+                }
 
+            } else {
+                return;
+            }
+        } else {
             System.exit(0);
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_exitFileActionPerformed
 
@@ -577,7 +708,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void bCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCutActionPerformed
-        //padPaint.cut();
+        padPaint.cut();
         // TODO add your handling code here:
     }//GEN-LAST:event_bCutActionPerformed
 
@@ -592,7 +723,89 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void openFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileActionPerformed
         // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser("Open a file");
+        int result = 0;
+        
+        FileNameExtensionFilter bitmap = new FileNameExtensionFilter("Bitmap Files (*.bmp; *.dib)", "bmp", "dib");
+        fileChooser.setFileFilter(bitmap);
+        
+        FileNameExtensionFilter jpeg = new FileNameExtensionFilter("JPEG (*.jpg;*.jpeg;*.jpe;*jfif)", "jpg", "jpeg", "jpe", "jfif");
+        fileChooser.setFileFilter(jpeg);
+        
+        FileNameExtensionFilter gif = new FileNameExtensionFilter("GIF (*.gif)", "gif");
+        fileChooser.setFileFilter(gif);
+        
+        FileNameExtensionFilter tiff = new FileNameExtensionFilter("TIFF (*.tif; *.tiff)", "tif", "tiff");
+        fileChooser.setFileFilter(tiff);
+        
+        FileNameExtensionFilter png = new FileNameExtensionFilter("PNG (*.png)", "png");
+        fileChooser.setFileFilter(png);
+        
+        FileNameExtensionFilter ico = new FileNameExtensionFilter("ICO (*.ico)", "ico");
+        fileChooser.setFileFilter(ico);
+        
+        FileNameExtensionFilter allFile = new FileNameExtensionFilter("All Picture Files", "bmp", "dib", "jpg", "jpeg", "jpe",
+                                                                "jfif", "gif", "tif", "tiff", "png", "ico");
+        fileChooser.setFileFilter(allFile);
+        
+        result = fileChooser.showOpenDialog(null);
+        
+        if(result == JFileChooser.APPROVE_OPTION){
+            File file = fileChooser.getSelectedFile();
+            BufferedImage img = null;
+            try{
+                img = ImageIO.read(new File(file.getPath()));
+            }catch(IOException e){
+                System.out.println("error in openFile action perform in MainFrame");
+            }
+            if(img != null){
+                if(padPaint.isSaving() == false){
+                    Object[] option = {"Save", "Don't save", "Cancel"};
+                    int specify = JOptionPane.showOptionDialog(this, "Do you want to save file?", "BKPaint", 
+                            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
+                    if(specify != JOptionPane.CANCEL_OPTION && specify != JOptionPane.CLOSED_OPTION){
+                        if(specify == JOptionPane.YES_OPTION){
+                            saveImageToFile();
+                        }else{
+                            return;
+                        }
+                    }
+                }
+                
+                padPaint.loadImage(img);
+                backgroundPanel.setPreferredSize(new Dimension(img.getWidth() + 20, img.getHeight() + 20));
+            }
+        }
     }//GEN-LAST:event_openFileActionPerformed
+
+
+    private void bCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCopyActionPerformed
+        padPaint.copy();// TODO add your handling code here:
+    }//GEN-LAST:event_bCopyActionPerformed
+
+    private void bPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPasteActionPerformed
+        padPaint.paste();// TODO add your handling code here:
+    }//GEN-LAST:event_bPasteActionPerformed
+
+    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
+        padPaint.delete();// TODO add your handling code here:
+    }//GEN-LAST:event_bDeleteActionPerformed
+
+    private void bReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReplayActionPerformed
+        // TODO add your handling code here:
+        padPaint.toolChange();
+        System.gc();
+        new ReplayDialog(this, true, padPaint.getListState());
+    }//GEN-LAST:event_bReplayActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bZoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bZoomOutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bZoomOutActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -633,20 +846,23 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton bCopy;
     private javax.swing.JButton bCut;
     private javax.swing.JButton bDelete;
+    private javax.swing.JButton bLibrary;
     private javax.swing.JButton bPaste;
     private javax.swing.JButton bRedo;
+    private javax.swing.JButton bReplay;
     private javax.swing.JButton bUndo;
     private javax.swing.JButton bZoomMinus;
+    private javax.swing.JButton bZoomOut;
     private javax.swing.JButton bZoomadd;
     private javax.swing.JButton bZoomorg;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbTransform;
     private property.ColorDialog colorDialog1;
     private javax.swing.JMenuItem exitFile;
     private javax.swing.JTextField height_tf;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -654,6 +870,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -664,9 +881,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lbLocation;
     private javax.swing.JLabel lbSize;
     private javax.swing.JMenuItem newFile;
-    private javax.swing.JButton openDialog;
     private javax.swing.JMenuItem openFile;
     private paint.PaintTool paintTool;
+    private javax.swing.JSlider sZoom;
     private javax.swing.JMenuItem saveAsFile;
     private javax.swing.JMenuItem saveFile;
     private javax.swing.JScrollPane scrollPane;

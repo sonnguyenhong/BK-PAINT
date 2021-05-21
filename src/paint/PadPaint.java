@@ -67,6 +67,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
     private TextPanel textPanel = new TextPanel();
     private Cursor cursor;
     private Cursor cursorOfPaint;
+    private Cursor cursorOfPencil;
     private Cursor cursorOfPicker;
     private Cursor cursorOfEraser;
     private Cursor cursorOfBucket;
@@ -123,8 +124,49 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         return cursor;
     }// dat cursor neu minh khong co thi bo di k set cx dc
     
-     public boolean isSaving() {
+    public boolean isSaving() {
         return isSaved;
+    }
+     
+    public void saveImage(File f, String extension){
+        try{
+            ImageIO.write(buff_img, extension, f);
+            isSaved = true;
+        }catch(IOException e){
+            isSaved = false;
+            System.out.println("Error in saveImage() in padpaint");
+        }
+    }
+    
+    public void loadImage(BufferedImage buff_img){
+        //Khi anh moi duoc mo thi khong phai luu
+        isSaved = true;
+        zoom = 1;
+        loadImage((Image) buff_img);
+    }
+    
+    public void loadImage(Image img){
+        if(img != null){
+            flush();
+            org_img = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
+            g2 = (Graphics2D) org_img.getGraphics();
+            g2.drawImage(img, 0, 0, img.getWidth(null), img.getHeight(null), this);
+            g2.dispose();
+            
+            buff_img = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
+            g2 = (Graphics2D) buff_img.getGraphics();
+            g2.drawImage(img, 0, 0, img.getWidth(null), img.getHeight(null), this);
+            g2.dispose();
+            
+            paintState.setData(org_img);
+            g2d = (Graphics2D) buff_img.getGraphics();
+            
+            this.setSize(new Dimension(org_img.getWidth(), org_img.getHeight()));
+            this.setMinimumSize(new Dimension(org_img.getWidth(), org_img.getHeight()));
+            this.setMaximumSize(new Dimension(org_img.getWidth(), org_img.getHeight(null)));
+            this.revalidate();
+            repaint();
+        }
     }
     
     public void setZoom(int z){
@@ -175,6 +217,12 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         initState();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        cursorOfEraser = setCursor("/paint/eraser.png", "eraser", 16, 16);
+        cursorOfPaint = setCursor("/paint/paint2.png", "paint2", 15, 15);
+        cursorOfBucket = setCursor("/paint/bucket.png", "bucket", 5, 4);
+        cursorOfPicker = setCursor("/paint/picker.png", "picker", 7, 22);
+        cursorOfPencil = setCursor("/paint/pen.png", "pencil", 16, 16);
+
     }
     
     private boolean testHit(Point p) {//test bấm xem có bấm vào trong phần select k
@@ -500,6 +548,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
                         text.draw(g2, g2d);
                     }
                     break;
+                
             }
         }
     }
@@ -917,6 +966,11 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
             }
         } else if (paintTool.getDrawMode() == DrawMode.BUCKET) {
             setCursor(cursorOfBucket);
+          } else if (paintTool.getDrawMode() == DrawMode.PENCIL) {
+            isMouseExit = false;
+            
+            repaint();
+            setCursor(cursorOfPencil);
         } else {
             setCursor(cursorOfPaint);
         }
