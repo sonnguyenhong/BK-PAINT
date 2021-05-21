@@ -67,6 +67,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
     private TextPanel textPanel = new TextPanel();
     private Cursor cursor;
     private Cursor cursorOfPaint;
+    private Cursor cursorOfPencil;
     private Cursor cursorOfPicker;
     private Cursor cursorOfEraser;
     private Cursor cursorOfBucket;
@@ -216,6 +217,12 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         initState();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        cursorOfEraser = setCursor("/paint/eraser.png", "eraser", 16, 16);
+        cursorOfPaint = setCursor("/paint/paint2.png", "paint2", 15, 15);
+        cursorOfBucket = setCursor("/paint/bucket.png", "bucket", 5, 4);
+        cursorOfPicker = setCursor("/paint/picker.png", "picker", 7, 22);
+        cursorOfPencil = setCursor("/paint/pen.png", "pencil", 16, 16);
+
     }
     
     private boolean testHit(Point p) {//test bấm xem có bấm vào trong phần select k
@@ -830,6 +837,11 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
             }
         } else if (paintTool.getDrawMode() == DrawMode.BUCKET) {
             setCursor(cursorOfBucket);
+          } else if (paintTool.getDrawMode() == DrawMode.PENCIL) {
+            isMouseExit = false;
+            
+            repaint();
+            setCursor(cursorOfPencil);
         } else {
             setCursor(cursorOfPaint);
         }
