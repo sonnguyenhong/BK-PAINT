@@ -115,6 +115,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/paint/pencil.png"/>
         </Property>
+        <Property name="selected" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bPencilActionPerformed"/>
@@ -129,6 +130,9 @@
           <Image iconType="3" name="/paint/bucket.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bBucketActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="bText">
       <Properties>
@@ -245,7 +249,6 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/paint/oval.png"/>
         </Property>
-        <Property name="selected" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bOvalActionPerformed"/>

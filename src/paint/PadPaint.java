@@ -150,6 +150,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         rect = new Rectangle();
         oval = new Oval();
         triangle = new Triangle();
+        bucket = new Bucket();
         pencil = new Pencil();
         start = new Point(-1,-1);
         end = new Point(-1,-1);
@@ -245,7 +246,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         sel_rect = null;    
     }
     
-    public void detele(){
+    public void delete(){
         if(sel_rect != null){
             int[] data = sel_rect.getData();// lấy data trong select ở đây là 1 mảng pixel
             int w = sel_rect.getWidth();
@@ -346,6 +347,9 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
                     break;
                 case TRIANGLE:
                     triangle.draw(g2);
+                    break;
+                case BUCKET:
+                    bucket.draw(buff_img);
                     break;
                 case OVAL:
                     oval.draw(g2);
