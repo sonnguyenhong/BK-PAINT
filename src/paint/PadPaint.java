@@ -123,8 +123,49 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         return cursor;
     }// dat cursor neu minh khong co thi bo di k set cx dc
     
-     public boolean isSaving() {
+    public boolean isSaving() {
         return isSaved;
+    }
+     
+    public void saveImage(File f, String extension){
+        try{
+            ImageIO.write(buff_img, extension, f);
+            isSaved = true;
+        }catch(IOException e){
+            isSaved = false;
+            System.out.println("Error in saveImage() in padpaint");
+        }
+    }
+    
+    public void loadImage(BufferedImage buff_img){
+        //Khi anh moi duoc mo thi khong phai luu
+        isSaved = true;
+        zoom = 1;
+        loadImage((Image) buff_img);
+    }
+    
+    public void loadImage(Image img){
+        if(img != null){
+            flush();
+            org_img = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
+            g2 = (Graphics2D) org_img.getGraphics();
+            g2.drawImage(img, 0, 0, img.getWidth(null), img.getHeight(null), this);
+            g2.dispose();
+            
+            buff_img = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
+            g2 = (Graphics2D) buff_img.getGraphics();
+            g2.drawImage(img, 0, 0, img.getWidth(null), img.getHeight(null), this);
+            g2.dispose();
+            
+            paintState.setData(org_img);
+            g2d = (Graphics2D) buff_img.getGraphics();
+            
+            this.setSize(new Dimension(org_img.getWidth(), org_img.getHeight()));
+            this.setMinimumSize(new Dimension(org_img.getWidth(), org_img.getHeight()));
+            this.setMaximumSize(new Dimension(org_img.getWidth(), org_img.getHeight(null)));
+            this.revalidate();
+            repaint();
+        }
     }
     
     public void setZoom(int z){
@@ -370,6 +411,9 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
                     if(text != null){
                         text.draw(g2, g2d);
                     }
+                    break;
+                case BUCKET:
+                    bucket.draw(buff_img);
                     break;
             }
         }

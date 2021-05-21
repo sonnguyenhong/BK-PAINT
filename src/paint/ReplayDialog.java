@@ -45,9 +45,9 @@ public class ReplayDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        playIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/data/icon/play.png")));
-        pauseIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/data/icon/pause.png")));
-        stopIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/data/icon/stop.png")));
+        playIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/paint/play.png")));
+        pauseIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/paint/pause.png")));
+        stopIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/paint/stop.png")));
         
         this.paintState = paintState;
         bPlay.setIcon(pauseIcon);
