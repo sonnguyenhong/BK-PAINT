@@ -157,8 +157,18 @@ public class MainFrame extends javax.swing.JFrame {
 
         bCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/copy.png"))); // NOI18N
         bCopy.setMaximumSize(new java.awt.Dimension(36, 36));
+        bCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCopyActionPerformed(evt);
+            }
+        });
 
         bPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/paste.png"))); // NOI18N
+        bPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPasteActionPerformed(evt);
+            }
+        });
 
         bCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/cut.png"))); // NOI18N
         bCut.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +178,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/delete.png"))); // NOI18N
+        bDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDeleteActionPerformed(evt);
+            }
+        });
 
         bUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/undo.png"))); // NOI18N
 
@@ -631,7 +646,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void bCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCutActionPerformed
-        //padPaint.cut();
+        padPaint.cut();
         // TODO add your handling code here:
     }//GEN-LAST:event_bCutActionPerformed
 
@@ -648,12 +663,26 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_openFileActionPerformed
 
+
+    private void bCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCopyActionPerformed
+        padPaint.copy();// TODO add your handling code here:
+    }//GEN-LAST:event_bCopyActionPerformed
+
+    private void bPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPasteActionPerformed
+        padPaint.paste();// TODO add your handling code here:
+    }//GEN-LAST:event_bPasteActionPerformed
+
+    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
+        padPaint.delete();// TODO add your handling code here:
+    }//GEN-LAST:event_bDeleteActionPerformed
+
     private void bReplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bReplayActionPerformed
         // TODO add your handling code here:
         padPaint.toolChange();
         System.gc();
         new ReplayDialog(this, true, padPaint.getListState());
     }//GEN-LAST:event_bReplayActionPerformed
+
 
     /**
      * @param args the command line arguments

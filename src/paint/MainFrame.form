@@ -309,6 +309,9 @@
                   <Dimension value="[36, 36]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCopyActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bPaste">
               <Properties>
@@ -316,6 +319,9 @@
                   <Image iconType="3" name="/paint/paste.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bPasteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bCut">
               <Properties>
@@ -333,6 +339,9 @@
                   <Image iconType="3" name="/paint/delete.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDeleteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bUndo">
               <Properties>
