@@ -466,13 +466,8 @@ public class ReplayPanel extends javax.swing.JPanel implements Runnable{
                         inEraser.draw(g2d);
                     }
                 }else if(inDrawType instanceof Bucket){
-                    bucket = (Bucket) inDrawType;
-                    listPoint = bucket.getArrPoint();
                     Bucket inBucket = (Bucket) inDrawType;
-                    for(int j = 1 ; j < inBucket.getArrPoint().size() ; j++){
-                        inBucket.setStart(inBucket.getArrPoint().get(j-1));
-                        inBucket.draw(g2d);
-                    }
+                            inBucket.draw(buff_img);
                 }
             }
             //Neu diem da duoc khoi tao 
@@ -505,7 +500,7 @@ public class ReplayPanel extends javax.swing.JPanel implements Runnable{
         isPlaying = false;
         thread = null;
         replay = false;
-        bPlay.setIcon(new ImageIcon(getClass().getResource("/data/icon/pause.png")));
+        bPlay.setIcon(new ImageIcon(getClass().getResource("/paint/pause.png")));
     }
 
 
