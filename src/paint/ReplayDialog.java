@@ -17,8 +17,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -37,19 +37,20 @@ public class ReplayDialog extends javax.swing.JDialog {
     private ReplayPanel replayPanel;
     private JPanel containerPanel;
     private BufferedImage buff_img;
-    
+    private boolean saveToFile = false;
     private boolean isSaved = false;
 
     /** Creates new form ReplayDialog */
     public ReplayDialog(java.awt.Frame parent, boolean modal, PaintState paintState) {
         super(parent, modal);
+        this.paintState = paintState;
         initComponents();
         
         playIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/paint/play.png")));
         pauseIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/paint/pause.png")));
         stopIcon = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/paint/stop.png")));
         
-        this.paintState = paintState;
+        
         bPlay.setIcon(pauseIcon);
         bStop.setIcon(stopIcon);
         
@@ -63,12 +64,13 @@ public class ReplayDialog extends javax.swing.JDialog {
         
         containerPanel.setPreferredSize(new Dimension(replayPanel.getWidth() + 100, replayPanel.getHeight() + 50));
         containerPanel.add(replayPanel);
+        scrollPane.setViewportView(containerPanel);
+        containerPanel.add(replayPanel);
         containerPanel.validate();
-        
         replayPanel.setButton(bPlay);
         this.addWindowListener(new WindowAdapter(){
             public void WindowClosing(WindowEvent e){
-                if(isSaved == false){
+                if(saveToFile == false){
                     Object[] option = {"Save", "Don't save", "Cancel"}; 
                     int specify = JOptionPane.showOptionDialog(null, "Do you want to save file?", "BKPaint", 
                             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
@@ -77,7 +79,7 @@ public class ReplayDialog extends javax.swing.JDialog {
                             saveFile();
                         }
                         
-                        if(isSaved == false){
+                        if (saveToFile == false) {
                             return;
                         }
                     }else{
@@ -119,9 +121,9 @@ public class ReplayDialog extends javax.swing.JDialog {
                 oos.writeObject(paintState);
                 isSaved = true;
                 oos.close();
-            }catch(IOException e){
+            }catch(IOException ex){
                 JOptionPane.showMessageDialog(null, "Save file error!", "Error", JOptionPane.ERROR_MESSAGE);
-                //Logger.getLogger(ReplayDialog.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReplayDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -134,7 +136,7 @@ public class ReplayDialog extends javax.swing.JDialog {
         select = fileOpen.showOpenDialog(null);
         
         if(select == JFileChooser.APPROVE_OPTION){
-            if(isSaved == false){
+            if(saveToFile == false){
                 Object[] option = {"Save", "Don't save", "Cancel"};
                 int specify = JOptionPane.showOptionDialog(this, "Do you want to save this file?", "BKPaint",
                         JOptionPane.YES_NO_CANCEL_OPTION, 
@@ -146,23 +148,23 @@ public class ReplayDialog extends javax.swing.JDialog {
                     saveFile();
                 }
             }
-            try{
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileOpen.getSelectedFile()));
+            try {
+
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileOpen.getSelectedFile()));
                 String s = fileOpen.getSelectedFile().getName();
                 this.setTitle(s + "- Replay Dialog");
-                
                 System.gc();
-                
-                paintState = (PaintState) ois.readObject();
+                paintState = (PaintState) in.readObject();
                 replayPanel.setPaintState(paintState);
                 replayPanel.refresh();
-                
                 System.gc();
-                ois.close();
-            }catch(IOException e){
-                System.out.println("Khong mo duoc file - error in openFile()");
-            }catch(ClassNotFoundException e){
-                System.out.println("Khong tim thay file - error in openFile()");
+                in.close();
+            } catch (IOException ex) {
+                System.out.println("loi vao ra");
+                Logger.getLogger(ReplayDialog.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                System.out.println("khong tim thay");
+                Logger.getLogger(ReplayDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -184,6 +186,7 @@ public class ReplayDialog extends javax.swing.JDialog {
         bPlay = new javax.swing.JToggleButton();
         bStop = new javax.swing.JToggleButton();
         speed = new javax.swing.JSlider();
+        scrollPane = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
         save = new javax.swing.JMenuItem();
@@ -217,7 +220,6 @@ public class ReplayDialog extends javax.swing.JDialog {
         file.setText("File");
 
         save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        save.setIcon(new javax.swing.ImageIcon("C:\\Users\\HP\\Documents\\NetBeansProjects\\BKPAINT\\data\\icon\\save.png")); // NOI18N
         save.setText("Save");
         save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,7 +229,6 @@ public class ReplayDialog extends javax.swing.JDialog {
         file.add(save);
 
         open.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        open.setIcon(new javax.swing.ImageIcon("C:\\Users\\HP\\Documents\\NetBeansProjects\\BKPAINT\\data\\icon\\open.png")); // NOI18N
         open.setText("Open");
         open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +238,6 @@ public class ReplayDialog extends javax.swing.JDialog {
         file.add(open);
 
         exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        exit.setIcon(new javax.swing.ImageIcon("C:\\Users\\HP\\Documents\\NetBeansProjects\\BKPAINT\\data\\icon\\exit.png")); // NOI18N
         exit.setText("Exit");
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,7 +250,6 @@ public class ReplayDialog extends javax.swing.JDialog {
 
         help.setText("Help");
 
-        info.setIcon(new javax.swing.ImageIcon("C:\\Users\\HP\\Documents\\NetBeansProjects\\BKPAINT\\data\\icon\\information.png")); // NOI18N
         info.setText("About BKPaint");
         help.add(info);
 
@@ -270,11 +269,13 @@ public class ReplayDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
                 .addComponent(speed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
+            .addComponent(scrollPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(286, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(speed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -288,8 +289,9 @@ public class ReplayDialog extends javax.swing.JDialog {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        if(isSaved == false){
+        if (saveToFile == false) {
             saveFile();
+        
         }
     }//GEN-LAST:event_saveActionPerformed
 
@@ -323,21 +325,22 @@ public class ReplayDialog extends javax.swing.JDialog {
         bPlay.setIcon(pauseIcon);
         replayPanel.stopReplay();
     }//GEN-LAST:event_bStopActionPerformed
-
+    
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
-        if(isSaved == false){
-            Object[] option = {"Save", "Don't save", "Cancel"};
-            int specify = JOptionPane.showOptionDialog(null, "Do you want to save file?"
-                    ,"BKPaint", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
-            if(specify != JOptionPane.CANCEL_OPTION && specify != JOptionPane.CLOSED_OPTION){
-                if(specify == JOptionPane.YES_OPTION){
+        if (saveToFile == false) {
+            Object[] option = {"Save", "Don't Save", "Cancel"};
+            int specify = JOptionPane.showOptionDialog(null, "Do you want to save file ?", "BKPaint",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
+            if (specify != JOptionPane.CANCEL_OPTION && specify != JOptionPane.CLOSED_OPTION) {
+                if (specify == JOptionPane.YES_OPTION) {
                     saveFile();
                 }
-                if(isSaved == false){
+                //Neu chua luu duoc thi khong thoat ra
+                if (saveToFile == false) {
                     return;
                 }
-            }else{
+            } else {
                 return;
             }
         }
@@ -402,6 +405,7 @@ public class ReplayDialog extends javax.swing.JDialog {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem open;
     private javax.swing.JMenuItem save;
+    private javax.swing.JScrollPane scrollPane;
     private javax.swing.JSlider speed;
     // End of variables declaration//GEN-END:variables
 
