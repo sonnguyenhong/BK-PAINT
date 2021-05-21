@@ -93,13 +93,17 @@ public class ReplayPanel extends javax.swing.JPanel implements Runnable{
         eraser = new Eraser();
         
         isPlaying = false;
-        
+        this.setSize(909, 439);
+
         org_img = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
-        buff_img = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
-        
         g2 = (Graphics2D) org_img.getGraphics();
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, getSize().width, getSize().height);
+        g2.dispose();
+        paintState.setData(org_img);
+        buff_img = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_RGB);
+        g2 = (Graphics2D) org_img.getGraphics();
+        g2.drawImage(org_img, 0, 0, null);
         g2.dispose();
         
         
@@ -371,7 +375,12 @@ public class ReplayPanel extends javax.swing.JPanel implements Runnable{
                     }
                 }else if(drawType instanceof Pencil){
                     if(cStateElement < listPoint.size() - 1){
-                        pencil.setPoint(listPoint.get(0), listPoint.get(cStateElement));
+                        
+                        System.out.println("currentState: " + currentState);
+                        System.out.println("currentStep: " + currentStep);
+                        System.out.println("currentStateElement: " + cStateElement);
+                        System.out.println("\n\n\n");
+                        pencil.setPoint(listPoint.get(cStateElement), listPoint.get(cStateElement + 1));
                         pencil.draw(g2dBuffer);
                     }
                 }else if(drawType instanceof Eraser){
