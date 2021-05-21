@@ -214,17 +214,11 @@
                               <Component id="jLabel4" min="-2" pref="41" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                      <Component id="bUndo" min="-2" pref="34" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="bRedo" min="-2" pref="34" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="cbTransform" min="-2" pref="87" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              <Component id="bUndo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="bRedo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               <Component id="paintTool" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -256,17 +250,16 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="paintTool" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cbTransform" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="bUndo" min="-2" pref="34" max="-2" attributes="0"/>
-                                          <Component id="bRedo" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                       <Component id="strokeState" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="bRedo" pref="48" max="32767" attributes="0"/>
+                                          <Component id="bUndo" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -282,7 +275,7 @@
                                       <Component id="jLabel8" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -316,6 +309,9 @@
                   <Dimension value="[36, 36]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCopyActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bPaste">
               <Properties>
@@ -323,6 +319,9 @@
                   <Image iconType="3" name="/paint/paste.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bPasteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bCut">
               <Properties>
@@ -340,6 +339,9 @@
                   <Image iconType="3" name="/paint/delete.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDeleteActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bUndo">
               <Properties>
@@ -354,23 +356,6 @@
                   <Image iconType="3" name="/paint/redo.png"/>
                 </Property>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cbTransform">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="6">
-                    <StringItem index="0" value="Rotate"/>
-                    <StringItem index="1" value="Rotate right 90"/>
-                    <StringItem index="2" value="Rotate left 90"/>
-                    <StringItem index="3" value="Rotate 180"/>
-                    <StringItem index="4" value="Flip vertical"/>
-                    <StringItem index="5" value="Flip horizontal"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
             </Component>
             <Component class="paint.PaintTool" name="paintTool">
               <Events>
@@ -540,11 +525,6 @@
             <Component class="property.TextPanel" name="textPanel1">
             </Component>
             <Component class="javax.swing.JButton" name="bLibrary">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\HP\Documents\NetBeansProjects\BKPAINT\data\icon\library.png"/>
-                </Property>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bLibraryActionPerformed"/>
               </Events>
@@ -578,11 +558,6 @@
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bReplay">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\HP\Documents\NetBeansProjects\BKPAINT\data\icon\replay.png"/>
-                </Property>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bReplayActionPerformed"/>
               </Events>

@@ -286,7 +286,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         sel_rect = null;    
     }
     
-    public void detele(){
+    public void delete(){
         if(sel_rect != null){
             int[] data = sel_rect.getData();// lấy data trong select ở đây là 1 mảng pixel
             int w = sel_rect.getWidth();
@@ -407,6 +407,9 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
                     if(text != null){
                         text.draw(g2, g2d);
                     }
+                    break;
+                case BUCKET:
+                    bucket.draw(buff_img);
                     break;
             }
         }
