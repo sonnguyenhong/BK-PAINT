@@ -412,9 +412,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
                         text.draw(g2, g2d);
                     }
                     break;
-                case BUCKET:
-                    bucket.draw(buff_img);
-                    break;
+                
             }
         }
     }
