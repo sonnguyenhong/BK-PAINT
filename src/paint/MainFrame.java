@@ -164,6 +164,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(20, 0));
 
         bCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/copy.png"))); // NOI18N
+        bCopy.setMnemonic('C');
         bCopy.setMaximumSize(new java.awt.Dimension(36, 36));
         bCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +173,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/paste.png"))); // NOI18N
+        bPaste.setMnemonic('V');
         bPaste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bPasteActionPerformed(evt);
