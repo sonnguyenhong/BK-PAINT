@@ -460,9 +460,9 @@
                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       <Component id="textPanel1" min="-2" pref="354" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="bReplay" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="openDialog" min="-2" pref="87" max="-2" attributes="0"/>
+                      <Component id="bLibrary" min="-2" pref="87" max="-2" attributes="0"/>
                       <EmptySpace pref="181" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -500,8 +500,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton5" alignment="3" min="-2" pref="92" max="-2" attributes="0"/>
-                                      <Component id="openDialog" alignment="3" min="-2" pref="92" max="-2" attributes="0"/>
+                                      <Component id="bReplay" alignment="3" min="-2" pref="92" max="-2" attributes="0"/>
+                                      <Component id="bLibrary" alignment="3" min="-2" pref="92" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="textPanel1" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -539,12 +539,14 @@
             </Component>
             <Component class="property.TextPanel" name="textPanel1">
             </Component>
-            <Component class="javax.swing.JButton" name="openDialog">
+            <Component class="javax.swing.JButton" name="bLibrary">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Library"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\HP\Documents\NetBeansProjects\BKPAINT\data\icon\library.png"/>
+                </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openDialogActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bLibraryActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
@@ -575,10 +577,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="bReplay">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Replay"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\HP\Documents\NetBeansProjects\BKPAINT\data\icon\replay.png"/>
+                </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bReplayActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
