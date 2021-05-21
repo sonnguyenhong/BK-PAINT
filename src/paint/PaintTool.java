@@ -86,6 +86,11 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bBucket);
         bBucket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/bucket.png"))); // NOI18N
+        bBucket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBucketActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(bText);
         bText.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/font.png"))); // NOI18N
@@ -274,6 +279,10 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
        setDrawMode(DrawMode.SELECT);
         // TODO add your handling code here:
     }//GEN-LAST:event_bSelectActionPerformed
+
+    private void bBucketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBucketActionPerformed
+        setDrawMode(DrawMode.BUCKET);// TODO add your handling code here:
+    }//GEN-LAST:event_bBucketActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
