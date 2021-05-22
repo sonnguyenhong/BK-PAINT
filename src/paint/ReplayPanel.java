@@ -115,6 +115,7 @@ public class ReplayPanel extends javax.swing.JPanel implements Runnable{
      * Doc cac trang thai va cac diem da duoc ve trong trang thai do tu cac list.
      * listPoint la danh sach cac diem da ve.
      * listState la danh sach lu cac trang thai cua cac buoc ve.
+     * 
      * DrawStepList la danh sach cho biet hien tai dang o buoc ve nao.
      */
     
