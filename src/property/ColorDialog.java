@@ -13,8 +13,8 @@ import javax.swing.JColorChooser;
 public class ColorDialog extends javax.swing.JPanel {
     private Color strokeColor;
     private Color fillColor;
-    private ImageIcon strokeIcon;
-    private ImageIcon fillIcon;
+    //private ImageIcon strokeIcon;
+    //private ImageIcon fillIcon;
     private Color colorPicker;
     private ButtonGroup group;
     
@@ -108,13 +108,15 @@ public class ColorDialog extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (bStrokeColor.isSelected()) {
             
-            strokeIcon = colorPanel.getImage();
+            //strokeIcon = colorPanel.getImage();
             strokeColor = colorPanel.getColor();
-            bStrokeColor.setIcon(strokeIcon);
+            bStrokeColor.setBackground(strokeColor);
+            //bStrokeColor.setIcon(strokeIcon);
         } else if (bFillColor.isSelected()) {
-            fillIcon = colorPanel.getImage();
+            //fillIcon = colorPanel.getImage();
             fillColor = colorPanel.getColor();
-            bFillColor.setIcon(fillIcon);
+            bFillColor.setBackground(fillColor);
+            //bFillColor.setIcon(fillIcon);
         }
     }//GEN-LAST:event_colorPanelMousePressed
 
@@ -141,15 +143,15 @@ public class ColorDialog extends javax.swing.JPanel {
 
     public void setColorPicker(Color c) {
         if (bStrokeColor.isSelected()) {
-            colorPanel.setImage(c);
-            strokeIcon = colorPanel.getImage();
+            //colorPanel.setImage(c);
+           // strokeIcon = colorPanel.getImage();
             strokeColor = c;
-            bStrokeColor.setIcon(strokeIcon);
+           // bStrokeColor.setIcon(strokeIcon);
         } else if (bFillColor.isSelected()) {
-            colorPanel.setImage(c);
-            fillIcon = colorPanel.getImage();
+            //colorPanel.setImage(c);
+            //fillIcon = colorPanel.getImage();
             fillColor = c;
-            bFillColor.setIcon(fillIcon);
+            //bFillColor.setIcon(fillIcon);
         }
     }
 
