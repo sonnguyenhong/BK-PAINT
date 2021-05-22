@@ -146,11 +146,13 @@ public class ColorDialog extends javax.swing.JPanel {
             //colorPanel.setImage(c);
            // strokeIcon = colorPanel.getImage();
             strokeColor = c;
+            bStrokeColor.setBackground(c);
            // bStrokeColor.setIcon(strokeIcon);
         } else if (bFillColor.isSelected()) {
             //colorPanel.setImage(c);
             //fillIcon = colorPanel.getImage();
             fillColor = c;
+            bFillColor.setBackground(c);
             //bFillColor.setIcon(fillIcon);
         }
     }
