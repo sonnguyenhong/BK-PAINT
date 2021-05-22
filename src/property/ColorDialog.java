@@ -13,7 +13,8 @@ import javax.swing.JColorChooser;
 public class ColorDialog extends javax.swing.JPanel {
     private Color strokeColor;
     private Color fillColor;
-
+    private ImageIcon strokeIcon;
+    private ImageIcon fillIcon;
     private Color colorPicker;
     private ButtonGroup group;
     
@@ -24,11 +25,11 @@ public class ColorDialog extends javax.swing.JPanel {
         
         
         initComponents();
-        group.add(bStroke);
-        group.add(bFill);
-        bStroke.setBackground(strokeColor);
-        bFill.setBackground(fillColor);
-        bStroke.setSelected(true);
+        group.add(bStrokeColor);
+        group.add(bFillColor);
+        bStrokeColor.setBackground(strokeColor);
+        bFillColor.setBackground(fillColor);
+        bStrokeColor.setSelected(true);
     }
 
     /**
@@ -41,11 +42,11 @@ public class ColorDialog extends javax.swing.JPanel {
     private void initComponents() {
 
         colorPanel = new property.ColorPanel();
-        bStroke = new javax.swing.JToggleButton();
-        bFill = new javax.swing.JToggleButton();
+        bStrokeColor = new javax.swing.JToggleButton();
+        bFillColor = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        colorChoose = new javax.swing.JButton();
+        colorChooser = new javax.swing.JButton();
 
         colorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -61,10 +62,10 @@ public class ColorDialog extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Fill");
 
-        colorChoose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/property/colorchooser.png"))); // NOI18N
-        colorChoose.addActionListener(new java.awt.event.ActionListener() {
+        colorChooser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/property/colorchooser.png"))); // NOI18N
+        colorChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorChooseActionPerformed(evt);
+                colorChooserActionPerformed(evt);
             }
         });
 
@@ -80,53 +81,55 @@ public class ColorDialog extends javax.swing.JPanel {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bStroke, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bStrokeColor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bFill, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bFillColor, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addComponent(colorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(colorChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(colorChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(colorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(bStroke, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(bFill, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bStrokeColor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(bFillColor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)))
-            .addComponent(colorChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(colorChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void colorPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorPanelMousePressed
         // TODO add your handling code here:
-        if (bStroke.isSelected()) {
+        if (bStrokeColor.isSelected()) {
             
+            strokeIcon = colorPanel.getImage();
             strokeColor = colorPanel.getColor();
-            bStroke.setBackground(strokeColor);
-        } else if (bFill.isSelected()) {
+            bStrokeColor.setIcon(strokeIcon);
+        } else if (bFillColor.isSelected()) {
+            fillIcon = colorPanel.getImage();
             fillColor = colorPanel.getColor();
-            bFill.setBackground(fillColor);
+            bFillColor.setIcon(fillIcon);
         }
     }//GEN-LAST:event_colorPanelMousePressed
 
-    private void colorChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorChooseActionPerformed
+    private void colorChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorChooserActionPerformed
         // TODO add your handling code here:
         Color color = JColorChooser.showDialog(this, "Edit Color", Color.RED);
         colorPanel.setImage(color);
-        if (bStroke.isSelected()) {
+        if (bStrokeColor.isSelected()) {
             strokeColor = colorPanel.getColor();
-            bStroke.setBackground(strokeColor);
-        } else if (bFill.isSelected()) {
+            bStrokeColor.setBackground(strokeColor);
+        } else if (bFillColor.isSelected()) {
             fillColor = colorPanel.getColor();
-            bFill.setBackground(fillColor);
+            bFillColor.setBackground(fillColor);
         }
-    }//GEN-LAST:event_colorChooseActionPerformed
+    }//GEN-LAST:event_colorChooserActionPerformed
 
     public Color getStrokeColor() {
         return strokeColor;
@@ -136,13 +139,17 @@ public class ColorDialog extends javax.swing.JPanel {
         return fillColor;
     }
 
-    public void setColorPicker(Color color) {
-        if (bStroke.isSelected()) {
-            strokeColor = colorPanel.getColor();
-            bStroke.setBackground(strokeColor);
-        } else if (bFill.isSelected()) {
-            fillColor = colorPanel.getColor();
-            bFill.setBackground(fillColor);
+    public void setColorPicker(Color c) {
+        if (bStrokeColor.isSelected()) {
+            colorPanel.setImage(c);
+            strokeIcon = colorPanel.getImage();
+            strokeColor = c;
+            bStrokeColor.setIcon(strokeIcon);
+        } else if (bFillColor.isSelected()) {
+            colorPanel.setImage(c);
+            fillIcon = colorPanel.getImage();
+            fillColor = c;
+            bFillColor.setIcon(fillIcon);
         }
     }
 
@@ -152,9 +159,9 @@ public class ColorDialog extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton bFill;
-    private javax.swing.JToggleButton bStroke;
-    private javax.swing.JButton colorChoose;
+    private javax.swing.JToggleButton bFillColor;
+    private javax.swing.JToggleButton bStrokeColor;
+    private javax.swing.JButton colorChooser;
     private property.ColorPanel colorPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
