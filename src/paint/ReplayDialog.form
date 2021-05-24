@@ -89,7 +89,7 @@
               <Component id="bPlay" min="-2" pref="37" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="bStop" min="-2" pref="37" max="-2" attributes="0"/>
-              <EmptySpace pref="247" max="32767" attributes="0"/>
+              <EmptySpace pref="299" max="32767" attributes="0"/>
               <Component id="speed" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
           </Group>
@@ -99,7 +99,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="scrollPane" pref="280" max="32767" attributes="0"/>
+              <Component id="scrollPane" pref="477" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="speed" min="-2" max="-2" attributes="0"/>
