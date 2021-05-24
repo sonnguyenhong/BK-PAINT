@@ -170,7 +170,38 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
     }
     
     public void setZoom(int z){
-        
+        switch (z / 10) {
+            case 2:
+                zoom = 1.0 / 8;
+                break;
+            case 3:
+                zoom = 1.0 / 6;
+                break;
+            case 4:
+                zoom = 1.0 / 4;
+                break;
+            case 5:
+                zoom = 1.0 / 2;
+                break;
+            case 6:
+                zoom = 1.0;
+                break;
+            case 7:
+                zoom = 2.0;
+                break;
+            case 8:
+                zoom = 3.0;
+                break;
+            case 9:
+                zoom = 4.0;
+                break;
+            case 10:
+                zoom = 5.0;
+                break;
+
+        }
+        this.setSize((int) (buff_img.getWidth() * zoom), (int) (buff_img.getHeight() * zoom));                //thay đổi kích thước panel cho phù hợp sau khi zoom
+        this.revalidate();
     }
     
     public double getzoom(){
@@ -217,11 +248,11 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         initState();
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-        cursorOfEraser = setCursor("/paint/eraser.png", "eraser", 16, 16);
+        cursorOfEraser = setCursor("/paint/eraser.png", "eraser", 1, 20);
         cursorOfPaint = setCursor("/paint/paint2.png", "paint2", 15, 15);
-        cursorOfBucket = setCursor("/paint/bucket.png", "bucket", 5, 4);
+        cursorOfBucket = setCursor("/paint/bucket.png", "bucket", 24, 27);
         cursorOfPicker = setCursor("/paint/picker.png", "picker", 7, 22);
-        cursorOfPencil = setCursor("/paint/pen.png", "pencil", 16, 16);
+        cursorOfPencil = setCursor("/paint/pen.png", "pencil", 1, 27);
 
     }
     
