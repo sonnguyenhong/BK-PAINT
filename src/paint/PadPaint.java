@@ -204,7 +204,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         this.revalidate();
     }
     
-    public double getzoom(){
+    public double getZoom(){
         return zoom;
     }
     
