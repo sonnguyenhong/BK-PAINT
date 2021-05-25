@@ -349,7 +349,7 @@
                 <Property name="mnemonic" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="&apos;c&apos;" type="code"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Alt+V"/>
+                <Property name="toolTipText" type="java.lang.String" value="Alt+C"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[36, 36]"/>
                 </Property>
@@ -672,6 +672,7 @@
           <Font name="sansserif" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="toolTipText" type="java.lang.String" value="Zoom In"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bZoomInActionPerformed"/>
@@ -683,12 +684,16 @@
           <Font name="sansserif" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="-"/>
+        <Property name="toolTipText" type="java.lang.String" value="ZoomOut"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bZoomOutActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSlider" name="sZoom">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Change Size"/>
+      </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sZoomStateChanged"/>
       </Events>

@@ -54,6 +54,8 @@ public class ColorDialog extends javax.swing.JPanel {
             }
         });
 
+        bFillColor.setToolTipText("");
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Stroke");
@@ -63,6 +65,7 @@ public class ColorDialog extends javax.swing.JPanel {
         jLabel2.setText("Fill");
 
         colorChooser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/property/colorchooser.png"))); // NOI18N
+        colorChooser.setToolTipText("Choose your desire color");
         colorChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 colorChooserActionPerformed(evt);

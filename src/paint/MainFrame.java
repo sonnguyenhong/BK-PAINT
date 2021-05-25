@@ -184,7 +184,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         bCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/copy.png"))); // NOI18N
         bCopy.setMnemonic('c');
-        bCopy.setToolTipText("Alt+V");
+        bCopy.setToolTipText("Alt+C");
         bCopy.setMaximumSize(new java.awt.Dimension(36, 36));
         bCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -478,6 +478,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         bZoomIn.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         bZoomIn.setText("+");
+        bZoomIn.setToolTipText("Zoom In");
         bZoomIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bZoomInActionPerformed(evt);
@@ -486,12 +487,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         bZoomOut.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         bZoomOut.setText("-");
+        bZoomOut.setToolTipText("ZoomOut");
         bZoomOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bZoomOutActionPerformed(evt);
             }
         });
 
+        sZoom.setToolTipText("Change Size");
         sZoom.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sZoomStateChanged(evt);

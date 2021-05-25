@@ -68,6 +68,9 @@
     <Component class="javax.swing.JToggleButton" name="bStrokeColor">
     </Component>
     <Component class="javax.swing.JToggleButton" name="bFillColor">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -92,6 +95,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/property/colorchooser.png"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Choose your desire color"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorChooserActionPerformed"/>
