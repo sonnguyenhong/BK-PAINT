@@ -347,8 +347,9 @@
                   <Image iconType="3" name="/paint/copy.png"/>
                 </Property>
                 <Property name="mnemonic" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="&apos;C&apos;" type="code"/>
+                  <Connection code="&apos;c&apos;" type="code"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Alt+V"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[36, 36]"/>
                 </Property>
@@ -365,6 +366,7 @@
                 <Property name="mnemonic" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="&apos;V&apos;" type="code"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Alt+V"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bPasteActionPerformed"/>
@@ -375,6 +377,10 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/paint/cut.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="&apos;X&apos;" type="code"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Alt+X"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCutActionPerformed"/>
@@ -385,6 +391,10 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/paint/delete.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="&apos;D&apos;" type="code"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Alt+D"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDeleteActionPerformed"/>
@@ -395,6 +405,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/paint/undo.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Undo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bUndoActionPerformed"/>
@@ -405,6 +416,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/paint/redo.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Redo"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRedoActionPerformed"/>
@@ -591,6 +603,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/paint/library.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Photo Library"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bLibraryActionPerformed"/>
@@ -629,6 +642,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/paint/replay.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Replay"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bReplayActionPerformed"/>
@@ -695,7 +709,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbZoomInfo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel11"/>
+        <Property name="text" type="java.lang.String" value="100%"/>
       </Properties>
     </Component>
   </SubComponents>

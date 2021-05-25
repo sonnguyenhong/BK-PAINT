@@ -80,6 +80,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
         buttonGroup1.add(bPencil);
         bPencil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/pencil.png"))); // NOI18N
         bPencil.setSelected(true);
+        bPencil.setToolTipText("Pencil");
         bPencil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bPencilActionPerformed(evt);
@@ -88,6 +89,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bBucket);
         bBucket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/bucket.png"))); // NOI18N
+        bBucket.setToolTipText("Bucket");
         bBucket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bBucketActionPerformed(evt);
@@ -96,7 +98,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bText);
         bText.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/font.png"))); // NOI18N
-        bText.setToolTipText("");
+        bText.setToolTipText("Text");
         bText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bTextActionPerformed(evt);
@@ -105,6 +107,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bEraser);
         bEraser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/eraser.png"))); // NOI18N
+        bEraser.setToolTipText("Eraser");
         bEraser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bEraserActionPerformed(evt);
@@ -113,6 +116,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bPicker);
         bPicker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/picker.png"))); // NOI18N
+        bPicker.setToolTipText("Picker");
         bPicker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bPickerActionPerformed(evt);
@@ -121,6 +125,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bRectangle);
         bRectangle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/rectangle.png"))); // NOI18N
+        bRectangle.setToolTipText("Rectangle");
         bRectangle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bRectangleActionPerformed(evt);
@@ -138,6 +143,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bLine);
         bLine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/line.png"))); // NOI18N
+        bLine.setToolTipText("Line");
         bLine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bLineActionPerformed(evt);
@@ -146,7 +152,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bTriangle);
         bTriangle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/triangle.png"))); // NOI18N
-        bTriangle.setToolTipText("");
+        bTriangle.setToolTipText("Triangle");
         bTriangle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bTriangleActionPerformed(evt);
@@ -155,6 +161,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bCurve);
         bCurve.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/curve.png"))); // NOI18N
+        bCurve.setToolTipText("Curve");
         bCurve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCurveActionPerformed(evt);
@@ -163,6 +170,7 @@ public class PaintTool extends javax.swing.JPanel implements ActionListener {
 
         buttonGroup1.add(bOval);
         bOval.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/oval.png"))); // NOI18N
+        bOval.setToolTipText("Oval");
         bOval.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOvalActionPerformed(evt);
