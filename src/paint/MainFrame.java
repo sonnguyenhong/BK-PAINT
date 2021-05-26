@@ -67,8 +67,26 @@ public class MainFrame extends javax.swing.JFrame {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                
+                if (padPaint.isSaving() == false) {
+                    Object[] option = {"Save", "Don't Save", "Cancel"};
+                    int specify = JOptionPane.showOptionDialog(null, "Do you want to save file ?", "BKPaint", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, rootPane);
+                    if (specify != JOptionPane.CANCEL_OPTION && specify != JOptionPane.CLOSED_OPTION) {
+                        if (specify == JOptionPane.YES_OPTION) {
+                            saveImageToFile();
+                            //phai luu duoc thi moi thoat
+                            if (padPaint.isSaving()) {
+                                System.exit(0);
+                            }
+                        } else {
+                            System.exit(0);
+                        }
+
+                    } else {
+                        return;
+                    }
+                } else {
                     System.exit(0);
+                }
 
             }
         });
@@ -165,7 +183,8 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(20, 0));
 
         bCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/copy.png"))); // NOI18N
-        bCopy.setMnemonic('C');
+        bCopy.setMnemonic('c');
+        bCopy.setToolTipText("Alt+C");
         bCopy.setMaximumSize(new java.awt.Dimension(36, 36));
         bCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,6 +194,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         bPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/paste.png"))); // NOI18N
         bPaste.setMnemonic('V');
+        bPaste.setToolTipText("Alt+V");
         bPaste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bPasteActionPerformed(evt);
@@ -182,6 +202,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/cut.png"))); // NOI18N
+        bCut.setMnemonic('X');
+        bCut.setToolTipText("Alt+X");
         bCut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCutActionPerformed(evt);
@@ -189,6 +211,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/delete.png"))); // NOI18N
+        bDelete.setMnemonic('D');
+        bDelete.setToolTipText("Alt+D");
         bDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bDeleteActionPerformed(evt);
@@ -196,6 +220,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/undo.png"))); // NOI18N
+        bUndo.setToolTipText("Undo");
         bUndo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bUndoActionPerformed(evt);
@@ -203,6 +228,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/redo.png"))); // NOI18N
+        bRedo.setToolTipText("Redo");
         bRedo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bRedoActionPerformed(evt);
@@ -345,6 +371,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bLibrary.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/library.png"))); // NOI18N
+        bLibrary.setToolTipText("Photo Library");
         bLibrary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bLibraryActionPerformed(evt);
@@ -371,6 +398,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         bReplay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/replay.png"))); // NOI18N
+        bReplay.setToolTipText("Replay");
         bReplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bReplayActionPerformed(evt);
@@ -450,6 +478,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         bZoomIn.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         bZoomIn.setText("+");
+        bZoomIn.setToolTipText("Zoom In");
         bZoomIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bZoomInActionPerformed(evt);
@@ -458,12 +487,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         bZoomOut.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         bZoomOut.setText("-");
+        bZoomOut.setToolTipText("ZoomOut");
         bZoomOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bZoomOutActionPerformed(evt);
             }
         });
 
+        sZoom.setToolTipText("Change Size");
         sZoom.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sZoomStateChanged(evt);
@@ -474,7 +505,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/size.png"))); // NOI18N
 
-        lbZoomInfo.setText("jLabel11");
+        lbZoomInfo.setText("100%");
 
         jMenu1.setText("File");
 
@@ -950,7 +981,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bRedoActionPerformed
 
     private void bZoomaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bZoomaddActionPerformed
-        sZoom.setValue(sZoom.getValue() + 5);// TODO add your handling code here:
+        sZoom.setValue(sZoom.getValue() + 5);
+        // TODO add your handling code here:
     }//GEN-LAST:event_bZoomaddActionPerformed
 
     private void bZoomorgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bZoomorgActionPerformed
