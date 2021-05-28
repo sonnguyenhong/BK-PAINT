@@ -115,20 +115,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPane" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel3" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -137,50 +123,47 @@
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="jLabel10" min="-2" pref="48" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lbSize" min="-2" pref="48" max="-2" attributes="0"/>
+              <Component id="lbSize" min="-2" pref="116" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="lbZoomInfo" min="-2" pref="48" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="bZoomIn" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="sZoom" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="bZoomOut" min="-2" pref="35" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Component id="sZoom" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Component id="bZoomIn" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
+          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="scrollPane" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
               <Component id="jTabbedPane1" min="-2" pref="141" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              <Component id="scrollPane" min="-2" pref="621" max="-2" attributes="0"/>
+              <Component id="scrollPane" min="-2" pref="625" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="bZoomIn" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbZoomInfo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="bZoomOut" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="sZoom" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="lbSize" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lbLocation" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="sZoom" max="-2" attributes="0"/>
+                          <Component id="bZoomIn" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                              <Component id="bZoomOut" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbZoomInfo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -191,21 +174,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel3">
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-    </Container>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
@@ -279,7 +247,7 @@
                               <Component id="colorDialog1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="594" max="32767" attributes="0"/>
+                      <EmptySpace pref="412" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -507,8 +475,8 @@
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="width_tf" min="-2" pref="72" max="-2" attributes="0"/>
-                          <Component id="height_tf" min="-2" pref="72" max="-2" attributes="0"/>
+                          <Component id="width_tf" max="32767" attributes="0"/>
+                          <Component id="height_tf" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                       <Component id="textPanel1" min="-2" pref="354" max="-2" attributes="0"/>
@@ -516,7 +484,7 @@
                       <Component id="bReplay" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="bLibrary" min="-2" pref="87" max="-2" attributes="0"/>
-                      <EmptySpace pref="626" max="32767" attributes="0"/>
+                      <EmptySpace pref="502" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -536,12 +504,12 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="width_tf" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="width_tf" alignment="3" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="height_tf" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="height_tf" alignment="3" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="bZoomorg" alignment="0" max="32767" attributes="0"/>
@@ -658,25 +626,13 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lbLocation">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel9"/>
+        <Property name="text" type="java.lang.String" value="NaN"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbSize">
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel10"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="bZoomIn">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="sansserif" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="+"/>
-        <Property name="toolTipText" type="java.lang.String" value="Zoom In"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bZoomInActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bZoomOut">
       <Properties>
@@ -688,14 +644,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bZoomOutActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JSlider" name="sZoom">
-      <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Change Size"/>
-      </Properties>
-      <Events>
-        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sZoomStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
@@ -711,6 +659,30 @@
           <Image iconType="3" name="/paint/size.png"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JSlider" name="sZoom">
+      <Properties>
+        <Property name="majorTickSpacing" type="int" value="10"/>
+        <Property name="minimum" type="int" value="20"/>
+        <Property name="minorTickSpacing" type="int" value="10"/>
+        <Property name="toolTipText" type="java.lang.String" value="Change Size"/>
+        <Property name="value" type="int" value="60"/>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sZoomStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bZoomIn">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="toolTipText" type="java.lang.String" value="Zoom In"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bZoomInActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbZoomInfo">
       <Properties>

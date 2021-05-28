@@ -113,7 +113,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         bCopy = new javax.swing.JButton();
@@ -146,11 +145,11 @@ public class MainFrame extends javax.swing.JFrame {
         scrollPane = new javax.swing.JScrollPane();
         lbLocation = new javax.swing.JLabel();
         lbSize = new javax.swing.JLabel();
-        bZoomIn = new javax.swing.JButton();
         bZoomOut = new javax.swing.JButton();
-        sZoom = new javax.swing.JSlider();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        sZoom = new javax.swing.JSlider();
+        bZoomIn = new javax.swing.JButton();
         lbZoomInfo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -167,17 +166,6 @@ public class MainFrame extends javax.swing.JFrame {
                 formMousePressed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         jPanel1.setBackground(new java.awt.Color(216, 238, 238));
         jPanel1.setMinimumSize(new java.awt.Dimension(20, 0));
@@ -301,7 +289,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(strokeState, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(colorDialog1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(594, Short.MAX_VALUE))
+                .addContainerGap(412, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,15 +416,15 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(OK_btn)
                         .addGap(40, 40, 40)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(width_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(height_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(width_tf)
+                    .addComponent(height_tf))
                 .addGap(56, 56, 56)
                 .addComponent(textPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(bReplay, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(bLibrary, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(626, Short.MAX_VALUE))
+                .addContainerGap(502, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,11 +441,11 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel1)
-                                        .addComponent(width_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(width_tf))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel2)
-                                        .addComponent(height_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(height_tf)))
                                 .addComponent(bZoomorg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(bZoomadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -472,18 +460,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Options", jPanel2);
 
-        lbLocation.setText("jLabel9");
+        lbLocation.setText("NaN");
 
         lbSize.setText("jLabel10");
-
-        bZoomIn.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        bZoomIn.setText("+");
-        bZoomIn.setToolTipText("Zoom In");
-        bZoomIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bZoomInActionPerformed(evt);
-            }
-        });
 
         bZoomOut.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         bZoomOut.setText("-");
@@ -494,16 +473,29 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/location.png"))); // NOI18N
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/size.png"))); // NOI18N
+
+        sZoom.setMajorTickSpacing(10);
+        sZoom.setMinimum(20);
+        sZoom.setMinorTickSpacing(10);
         sZoom.setToolTipText("Change Size");
+        sZoom.setValue(60);
         sZoom.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sZoomStateChanged(evt);
             }
         });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/location.png"))); // NOI18N
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/paint/size.png"))); // NOI18N
+        bZoomIn.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        bZoomIn.setText("+");
+        bZoomIn.setToolTipText("Zoom In");
+        bZoomIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bZoomInActionPerformed(evt);
+            }
+        });
 
         lbZoomInfo.setText("100%");
 
@@ -570,16 +562,6 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(scrollPane)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -587,44 +569,42 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbSize, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbSize, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbZoomInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(bZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sZoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(232, 232, 232))
+                .addGap(9, 9, 9)
+                .addComponent(sZoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(bZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+            .addComponent(jTabbedPane1)
+            .addComponent(scrollPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(bZoomIn)
-                                .addComponent(lbZoomInfo))
-                            .addComponent(bZoomOut)
-                            .addComponent(sZoom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
+                        .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbSize)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lbLocation)
                                 .addComponent(jLabel9)
-                                .addComponent(jLabel10)))))
+                                .addComponent(jLabel10))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sZoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bZoomIn)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(bZoomOut)
+                                .addComponent(lbZoomInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -962,10 +942,6 @@ public class MainFrame extends javax.swing.JFrame {
         new ReplayDialog(this, true, padPaint.getListState());
     }//GEN-LAST:event_bReplayActionPerformed
 
-    private void bZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bZoomInActionPerformed
-        sZoom.setValue(sZoom.getValue() + 5);// TODO add your handling code here:
-    }//GEN-LAST:event_bZoomInActionPerformed
-
     private void bZoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bZoomOutActionPerformed
         sZoom.setValue(sZoom.getValue() - 5);// TODO add your handling code here:
     }//GEN-LAST:event_bZoomOutActionPerformed
@@ -989,12 +965,18 @@ public class MainFrame extends javax.swing.JFrame {
         sZoom.setValue(60);// TODO add your handling code here:
     }//GEN-LAST:event_bZoomorgActionPerformed
 
+    private void bZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bZoomInActionPerformed
+        sZoom.setValue(sZoom.getValue() + 5);// TODO add your handling code here:
+    }//GEN-LAST:event_bZoomInActionPerformed
+
     private void sZoomStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sZoomStateChanged
         padPaint.setZoom(sZoom.getValue());
         int zoom = (int) (padPaint.getZoom() * 100);
         String zoomInfo = zoom + "%";
         lbZoomInfo.setText(zoomInfo);
-        backgroundPanel.setPreferredSize(new Dimension(padPaint.getWidth() + 5, padPaint.getHeight() + 5));// TODO add your handling code here:
+        backgroundPanel.setPreferredSize(new Dimension(padPaint.getWidth() + 5, padPaint.getHeight() + 5));
+        padPaint.setSizeStatus(lbSize);
+        padPaint.setSizeStatusInfo();
     }//GEN-LAST:event_sZoomStateChanged
 
 
@@ -1066,7 +1048,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbLocation;
