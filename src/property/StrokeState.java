@@ -173,8 +173,7 @@ public class StrokeState extends javax.swing.JPanel {
 
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            //Get the selected index. (The index param isn't
-            //always valid, so just use the value.)
+            //Get the selected index. (The index param isn't always valid, so just use the value.)
             int selectedIndex = ((Integer) value).intValue();
 
             if (isSelected) {

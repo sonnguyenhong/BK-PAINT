@@ -85,10 +85,7 @@ public class TextPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
         jComboBox1 = new javax.swing.JComboBox();
         jComboBox2 = new javax.swing.JComboBox();
         jToggleButton1 = new javax.swing.JToggleButton();
@@ -111,7 +108,6 @@ public class TextPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonGroup1.add(jToggleButton1);
         jToggleButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jToggleButton1.setText("B");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +116,6 @@ public class TextPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonGroup1.add(jToggleButton2);
         jToggleButton2.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         jToggleButton2.setText("I");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +124,7 @@ public class TextPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonGroup3.add(jToggleButton3);
+        buttonGroup1.add(jToggleButton3);
         jToggleButton3.setText("Opaque");
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,7 +132,7 @@ public class TextPanel extends javax.swing.JPanel {
             }
         });
 
-        buttonGroup3.add(jToggleButton4);
+        buttonGroup1.add(jToggleButton4);
         jToggleButton4.setText("Transparent");
         jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,8 +225,6 @@ public class TextPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JToggleButton jToggleButton1;
