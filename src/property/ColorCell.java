@@ -41,10 +41,10 @@ public class ColorCell extends ImageIcon{
         this.color = color;
     }
     
-    @Override
-    public void paintIcon(Component c, Graphics g, int x, int y){
-        g.setColor(color);
-        g.fillRect(6, 6, WIDTH+8, HEIGHT+8);
-    }
+//    @Override
+//    public void paintIcon(Component c, Graphics g, int x, int y){
+//        g.setColor(color);
+//        g.fillRect(6, 6, WIDTH+8, HEIGHT+8);
+//    }
     
 }

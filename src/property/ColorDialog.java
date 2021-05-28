@@ -13,8 +13,6 @@ import javax.swing.JColorChooser;
 public class ColorDialog extends javax.swing.JPanel {
     private Color strokeColor;
     private Color fillColor;
-    //private ImageIcon strokeIcon;
-    //private ImageIcon fillIcon;
     private Color colorPicker;
     private ButtonGroup group;
     
@@ -110,22 +108,18 @@ public class ColorDialog extends javax.swing.JPanel {
     private void colorPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorPanelMousePressed
         // TODO add your handling code here:
         if (bStrokeColor.isSelected()) {
-            
-            //strokeIcon = colorPanel.getImage();
             strokeColor = colorPanel.getColor();
             bStrokeColor.setBackground(strokeColor);
-            //bStrokeColor.setIcon(strokeIcon);
         } else if (bFillColor.isSelected()) {
-            //fillIcon = colorPanel.getImage();
             fillColor = colorPanel.getColor();
             bFillColor.setBackground(fillColor);
-            //bFillColor.setIcon(fillIcon);
         }
     }//GEN-LAST:event_colorPanelMousePressed
 
     private void colorChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorChooserActionPerformed
         // TODO add your handling code here:
         Color color = JColorChooser.showDialog(this, "Edit Color", Color.RED);
+//        if ()
         colorPanel.setImage(color);
         if (bStrokeColor.isSelected()) {
             strokeColor = colorPanel.getColor();
@@ -134,6 +128,8 @@ public class ColorDialog extends javax.swing.JPanel {
             fillColor = colorPanel.getColor();
             bFillColor.setBackground(fillColor);
         }
+        
+        
     }//GEN-LAST:event_colorChooserActionPerformed
 
     public Color getStrokeColor() {
@@ -146,22 +142,16 @@ public class ColorDialog extends javax.swing.JPanel {
 
     public void setColorPicker(Color c) {
         if (bStrokeColor.isSelected()) {
-            //colorPanel.setImage(c);
-           // strokeIcon = colorPanel.getImage();
             strokeColor = c;
             bStrokeColor.setBackground(c);
-           // bStrokeColor.setIcon(strokeIcon);
         } else if (bFillColor.isSelected()) {
-            //colorPanel.setImage(c);
-            //fillIcon = colorPanel.getImage();
             fillColor = c;
             bFillColor.setBackground(c);
-            //bFillColor.setIcon(fillIcon);
         }
     }
 
     public Color getColorPicker() {
-        return this.colorPicker;
+        return colorPicker;
     }
     
 
