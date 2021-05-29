@@ -119,17 +119,16 @@ public class ColorDialog extends javax.swing.JPanel {
     private void colorChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorChooserActionPerformed
         // TODO add your handling code here:
         Color color = JColorChooser.showDialog(this, "Edit Color", Color.RED);
-//        if ()
+        if (color != null){
         colorPanel.setImage(color);
-        if (bStrokeColor.isSelected()) {
-            strokeColor = colorPanel.getColor();
-            bStrokeColor.setBackground(strokeColor);
-        } else if (bFillColor.isSelected()) {
-            fillColor = colorPanel.getColor();
-            bFillColor.setBackground(fillColor);
+            if (bStrokeColor.isSelected()) {
+                strokeColor = colorPanel.getColor();
+                bStrokeColor.setBackground(strokeColor);
+            } else if (bFillColor.isSelected()) {
+                fillColor = colorPanel.getColor();
+                bFillColor.setBackground(fillColor);
+            }
         }
-        
-        
     }//GEN-LAST:event_colorChooserActionPerformed
 
     public Color getStrokeColor() {

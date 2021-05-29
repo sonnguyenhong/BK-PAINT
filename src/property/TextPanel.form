@@ -30,18 +30,18 @@
                   <Group type="102" attributes="0">
                       <Component id="jComboBox2" min="-2" pref="65" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="jToggleButton5" min="-2" max="-2" attributes="0"/>
+                      <Component id="bPLAIN" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="bBOLD" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jToggleButton2" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="bITALIC" min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jToggleButton4" max="32767" attributes="0"/>
-                  <Component id="jToggleButton3" max="32767" attributes="0"/>
+                  <Component id="bTransparent" max="32767" attributes="0"/>
+                  <Component id="bOpaque" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -52,17 +52,17 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jToggleButton3" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="bOpaque" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="jComboBox1" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jComboBox2" min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="jToggleButton4" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="jToggleButton2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jToggleButton1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="jToggleButton5" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="bTransparent" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="bITALIC" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="bBOLD" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="bPLAIN" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -378,7 +378,7 @@
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBox2ItemStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+    <Component class="javax.swing.JToggleButton" name="bBOLD">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
@@ -389,10 +389,10 @@
         <Property name="text" type="java.lang.String" value="B"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bBOLDActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton2">
+    <Component class="javax.swing.JToggleButton" name="bITALIC">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup1"/>
@@ -403,10 +403,10 @@
         <Property name="text" type="java.lang.String" value="I"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bITALICActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton3">
+    <Component class="javax.swing.JToggleButton" name="bOpaque">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup3"/>
@@ -414,10 +414,10 @@
         <Property name="text" type="java.lang.String" value="Opaque"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bOpaqueActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton4">
+    <Component class="javax.swing.JToggleButton" name="bTransparent">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="buttonGroup3"/>
@@ -425,15 +425,15 @@
         <Property name="text" type="java.lang.String" value="Transparent"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bTransparentActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton5">
+    <Component class="javax.swing.JToggleButton" name="bPLAIN">
       <Properties>
         <Property name="text" type="java.lang.String" value="P"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bPLAINActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
