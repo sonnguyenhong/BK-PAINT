@@ -250,7 +250,7 @@ public class PadPaint extends javax.swing.JPanel implements MouseListener, Mouse
         this.addMouseMotionListener(this);
         cursorOfEraser = setCursor("/paint/eraser.png", "eraser", 1, 20);
         cursorOfPaint = setCursor("/paint/paint2.png", "paint2", 15, 15);
-        cursorOfBucket = setCursor("/paint/bucket.png", "bucket", 24, 27);
+        cursorOfBucket = setCursor("/paint/bucket2.png", "bucket", 5, 4);
         cursorOfPicker = setCursor("/paint/picker.png", "picker", 7, 22);
         cursorOfPencil = setCursor("/paint/pen.png", "pencil", 1, 27);
 
